@@ -781,6 +781,9 @@ def api_create_invoice_from_upload(request):
             item_units = request.POST.getlist('item_unit[]')
             item_values = request.POST.getlist('item_value[]')
 
+            # Get order type mapping for codes
+            code_order_types = _get_item_code_categories(item_codes)
+
             # Create line items directly from extracted data (no aggregation to preserve extracted values)
             try:
                 try:
@@ -820,6 +823,15 @@ def api_create_invoice_from_upload(request):
                         except Exception:
                             line_total = qty * unit_price
 
+                        # Get order type for this item from code mapping
+                        item_order_type = 'unknown'
+                        if code and code in code_order_types:
+                            item_order_type = code_order_types[code].get('order_type', 'unknown')
+                        elif code:
+                            item_order_type = 'unknown'
+                        else:
+                            item_order_type = 'unknown'
+
                         key = (
                             (code or ''),
                             desc.strip().lower(),
@@ -841,6 +853,7 @@ def api_create_invoice_from_upload(request):
                             tax_rate=Decimal('0'),
                             line_total=line_total,
                             tax_amount=Decimal('0'),
+                            order_type=item_order_type,
                         ))
                     except Exception as e:
                         logger.warning(f"Failed to process line item {idx}: {e}")
@@ -848,7 +861,7 @@ def api_create_invoice_from_upload(request):
 
                 if to_create:
                     InvoiceLineItem.objects.bulk_create(to_create)
-                    logger.info(f"Created {len(to_create)} line items from extracted data with preserved values")
+                    logger.info(f"Created {len(to_create)} line items from extracted data with preserved values and order types")
             except Exception as e:
                 logger.warning(f"Failed to bulk create line items: {e}")
 

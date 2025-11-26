@@ -500,6 +500,36 @@ def dashboard(request: HttpRequest):
             invoices_this_month_count = 0
             revenue_by_branch_tsh = {}
 
+        # Revenue breakdown by order type
+        revenue_by_type = {}
+        revenue_by_type_this_month = {}
+        try:
+            from tracker.utils.revenue_utils import get_revenue_by_order_type
+
+            # All-time revenue by type
+            revenue_by_type = get_revenue_by_order_type(invoices_qs)
+
+            # This month's revenue by type
+            revenue_by_type_this_month = get_revenue_by_order_type(month_invoices)
+        except Exception as e:
+            logger.warning(f"Error calculating revenue by order type: {e}")
+            revenue_by_type = {
+                'sales': Decimal('0'),
+                'service': Decimal('0'),
+                'labour': Decimal('0'),
+                'unknown': Decimal('0'),
+                'total': Decimal('0'),
+                'count': 0,
+            }
+            revenue_by_type_this_month = {
+                'sales': Decimal('0'),
+                'service': Decimal('0'),
+                'labour': Decimal('0'),
+                'unknown': Decimal('0'),
+                'total': Decimal('0'),
+                'count': 0,
+            }
+
         metrics = {
             'total_orders': total_orders,
             'completed_orders': completed_orders,
@@ -519,6 +549,9 @@ def dashboard(request: HttpRequest):
             'avg_invoice_amount': avg_invoice_amount,                  # Average invoice amount
             'invoices_this_month_count': invoices_this_month_count,    # Number of invoices this month
             'revenue_by_branch_tsh': revenue_by_branch_tsh,
+            # Revenue breakdown by order type
+            'revenue_by_type': revenue_by_type,
+            'revenue_by_type_this_month': revenue_by_type_this_month,
             'upcoming_appointments': list(upcoming_appointments.values('id', 'customer__full_name', 'created_at')),
             'top_customers': list(top_customers.values('id', 'full_name', 'order_count', 'phone', 'email', 'total_spent', 'latest_order_date', 'registration_date')),
             'recent_orders': list(orders_qs.select_related("customer").exclude(status="completed").order_by("-created_at").values('id', 'customer__full_name', 'status', 'created_at')[:10]),

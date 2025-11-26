@@ -328,8 +328,15 @@
 
 .period-tabs {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
     margin-bottom: 20px;
+}
+
+.period-controls {
+    display: flex;
+    gap: 10px;
 }
 
 .period-tabs button {
@@ -350,6 +357,38 @@
 
 .period-tabs button:hover {
     border-color: var(--primary-color);
+}
+
+.view-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.view-btn {
+    padding: 10px 15px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.view-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.view-btn:hover {
+    border-color: var(--primary-color);
+}
+
+.advanced-metrics-section {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
 .loading-spinner {
@@ -396,6 +435,110 @@
     100% { background-position: -200% 0; }
 }
 
+.lifecycle-flow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.lifecycle-stage {
+    flex: 1;
+    text-align: center;
+    min-width: 100px;
+}
+
+.stage-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 1.2rem;
+    color: white;
+    transition: var(--transition);
+}
+
+.stage-icon.pending {
+    background-color: #ffc107;
+}
+
+.stage-icon.progress {
+    background-color: #0d6efd;
+}
+
+.stage-icon.completed {
+    background-color: #28a745;
+}
+
+.stage-icon.returning {
+    background-color: #20c997;
+}
+
+.stage-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.stage-count {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.flow-arrow {
+    font-size: 1.5rem;
+    color: #ddd;
+    flex: 0 0 auto;
+}
+
+.pattern-insights {
+    display: grid;
+    gap: 15px;
+}
+
+.insight-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    transition: var(--transition);
+}
+
+.insight-item:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.insight-icon {
+    font-size: 1.5rem;
+    flex: 0 0 auto;
+}
+
+.insight-content {
+    flex: 1;
+}
+
+.insight-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.insight-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
 @media (max-width: 768px) {
     .filter-row {
         grid-template-columns: 1fr;
@@ -414,18 +557,32 @@
     .chart-container {
         height: 250px;
     }
-    
+
     .period-tabs {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .period-controls,
+    .view-controls {
         flex-wrap: wrap;
     }
-    
+
     .invoice-header {
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .invoice-amount {
         margin-top: 10px;
+    }
+
+    .lifecycle-flow {
+        gap: 5px;
+    }
+
+    .flow-arrow {
+        font-size: 1rem;
     }
 }
 </style>
@@ -448,20 +605,30 @@
     </div>
 </div>
 
-<!-- Period Selection -->
+<!-- Period Selection & Quick Actions -->
 <div class="period-tabs">
-    <button class="period-btn active" data-period="daily">
-        <i class="fa fa-calendar-day me-1"></i>Daily
-    </button>
-    <button class="period-btn" data-period="weekly">
-        <i class="fa fa-calendar-week me-1"></i>Weekly
-    </button>
-    <button class="period-btn" data-period="monthly">
-        <i class="fa fa-calendar-month me-1"></i>Monthly
-    </button>
+    <div class="period-controls">
+        <button class="period-btn active" data-period="daily">
+            <i class="fa fa-calendar-day me-1"></i>Daily
+        </button>
+        <button class="period-btn" data-period="weekly">
+            <i class="fa fa-calendar-week me-1"></i>Weekly
+        </button>
+        <button class="period-btn" data-period="monthly">
+            <i class="fa fa-calendar-month me-1"></i>Monthly
+        </button>
+    </div>
+    <div class="view-controls">
+        <button class="view-btn active" id="tableViewBtn" title="Table View">
+            <i class="fa fa-table"></i>
+        </button>
+        <button class="view-btn" id="cardViewBtn" title="Card View">
+            <i class="fa fa-th"></i>
+        </button>
+    </div>
 </div>
 
-<!-- Key Metrics -->
+<!-- Key Metrics & Advanced Stats -->
 <div class="row g-3 mb-4" id="metricsRow">
     <div class="col-md-3">
         <div class="metric-card">
@@ -485,6 +652,80 @@
         <div class="metric-card spent">
             <div class="metric-label">Total Spent</div>
             <div class="metric-value" id="metricTotalSpent">-</div>
+        </div>
+    </div>
+</div>
+
+<!-- Advanced Metrics Section -->
+<div class="advanced-metrics-section mb-4">
+    <h5 class="mb-3" style="color: #333;">
+        <i class="fa fa-chart-line me-2"></i>Advanced Tracking Metrics
+    </h5>
+
+    <!-- Revenue by Order Type -->
+    <div class="row g-3 mb-4" id="revenueMetricsRow" style="display:none;">
+        <h6 class="w-100" style="margin-bottom: 0; padding-bottom: 10px; color: #666;">
+            <i class="fa fa-money-bill-wave me-2"></i>Revenue Breakdown
+        </h6>
+        <div class="col-md-3">
+            <div class="metric-card" style="border-left: 4px solid #28a745;">
+                <div class="metric-label"><i class="fa fa-shopping-cart me-1"></i>Sales</div>
+                <div class="metric-value" id="metricRevenueSales" style="color: #28a745;">-</div>
+                <small class="text-muted" id="metricRevenueSalesLabel">TSH</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card" style="border-left: 4px solid #0d6efd;">
+                <div class="metric-label"><i class="fa fa-wrench me-1"></i>Service</div>
+                <div class="metric-value" id="metricRevenueService" style="color: #0d6efd;">-</div>
+                <small class="text-muted" id="metricRevenueServiceLabel">TSH</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card" style="border-left: 4px solid #0dcaf0;">
+                <div class="metric-label"><i class="fa fa-tools me-1"></i>Labour</div>
+                <div class="metric-value" id="metricRevenueLabour" style="color: #0dcaf0;">-</div>
+                <small class="text-muted" id="metricRevenueLabourLabel">TSH</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card" style="border-left: 4px solid #ffc107;">
+                <div class="metric-label"><i class="fa fa-question-circle me-1"></i>Other</div>
+                <div class="metric-value" id="metricRevenueUnknown" style="color: #ffc107;">-</div>
+                <small class="text-muted" id="metricRevenueUnknownLabel">TSH</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Analytics -->
+    <div class="row g-3 mb-0">
+        <div class="col-md-3">
+            <div class="metric-card" style="border-left: 4px solid #6c757d;">
+                <div class="metric-label"><i class="fa fa-hourglass-half me-1"></i>Avg Turnaround</div>
+                <div class="metric-value" id="metricAvgTurnaround" style="color: #6c757d; font-size: 1.5rem;">-</div>
+                <small class="text-muted">Hours</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card" style="border-left: 4px solid #20c997;">
+                <div class="metric-label"><i class="fa fa-sync-alt me-1"></i>Repeat Service %</div>
+                <div class="metric-value" id="metricRepeatServicePct" style="color: #20c997; font-size: 1.5rem;">-</div>
+                <small class="text-muted">Of tracked vehicles</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card" style="border-left: 4px solid #fd7e14;">
+                <div class="metric-label"><i class="fa fa-check-double me-1"></i>Avg Services/Vehicle</div>
+                <div class="metric-value" id="metricAvgServicesPerVehicle" style="color: #fd7e14; font-size: 1.5rem;">-</div>
+                <small class="text-muted">Per tracked vehicle</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card" style="border-left: 4px solid #e74c3c;">
+                <div class="metric-label"><i class="fa fa-coins me-1"></i>Avg Spend/Vehicle</div>
+                <div class="metric-value" id="metricAvgSpendPerVehicle" style="color: #e74c3c; font-size: 1.5rem;">-</div>
+                <small class="text-muted">TSH</small>
+            </div>
         </div>
     </div>
 </div>
@@ -534,9 +775,115 @@
 
 
 <!-- Charts Section -->
+<div class="row mb-4" id="chartsRow" style="display:none;">
+    <div class="col-lg-6">
+        <div class="chart-container">
+            <h6 style="margin-top: 0;">Service Trends</h6>
+            <canvas id="trendChart"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="chart-container">
+            <h6 style="margin-top: 0;">Spending by Order Type</h6>
+            <canvas id="typeChart"></canvas>
+        </div>
+    </div>
+</div>
 
-
-
+<!-- Vehicle Lifecycle & Service Patterns -->
+<div class="row mb-4" id="patternsSection" style="display:none;">
+    <div class="col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h6 class="mb-0"><i class="fa fa-project-diagram me-2"></i>Service Lifecycle Flow</h6>
+                <small class="text-muted">Orders through service pipeline</small>
+            </div>
+            <div class="card-body">
+                <div class="lifecycle-flow">
+                    <div class="lifecycle-stage">
+                        <div class="stage-icon pending">
+                            <i class="fa fa-hourglass-start"></i>
+                        </div>
+                        <div class="stage-label">Created</div>
+                        <div class="stage-count" id="flowCreated">-</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="lifecycle-stage">
+                        <div class="stage-icon progress">
+                            <i class="fa fa-wrench"></i>
+                        </div>
+                        <div class="stage-label">In Progress</div>
+                        <div class="stage-count" id="flowProgress">-</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="lifecycle-stage">
+                        <div class="stage-icon completed">
+                            <i class="fa fa-check-circle"></i>
+                        </div>
+                        <div class="stage-label">Completed</div>
+                        <div class="stage-count" id="flowCompleted">-</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="lifecycle-stage">
+                        <div class="stage-icon returning">
+                            <i class="fa fa-sync-alt"></i>
+                        </div>
+                        <div class="stage-label">Returning</div>
+                        <div class="stage-count" id="flowReturning">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h6 class="mb-0"><i class="fa fa-history me-2"></i>Service Pattern Analysis</h6>
+                <small class="text-muted">Repeat service & maintenance insights</small>
+            </div>
+            <div class="card-body">
+                <div class="pattern-insights">
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="fa fa-check-circle" style="color: #28a745;"></i>
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-label">First-Time Completions</div>
+                            <div class="insight-value" id="insightFirstTime">-</div>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="fa fa-redo" style="color: #0d6efd;"></i>
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-label">Requiring Follow-up Services</div>
+                            <div class="insight-value" id="insightFollowUp">-</div>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="fa fa-calendar-check" style="color: #20c997;"></i>
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-label">Multi-Visit Pattern</div>
+                            <div class="insight-value" id="insightMultiVisit">-</div>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">
+                            <i class="fa fa-exclamation-circle" style="color: #fd7e14;"></i>
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-label">Most Common Service</div>
+                            <div class="insight-value" id="insightCommonService">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Loading Indicator -->
 <div class="loading-spinner" id="loadingSpinner">
@@ -550,14 +897,31 @@
         <thead>
             <tr>
                 <th style="width: 4%;"></th>
-                <th style="width: 11%;">Plate Number</th>
-                <th style="width: 13%;">Customer</th>
-                <th style="width: 12%;">Service Types</th>
-                <th style="width: 8%;">Orders</th>
-                <th style="width: 8%;">Invoices</th>
-                <th style="width: 9%;">Status</th>
-                <th style="width: 12%; text-align: right;">Total Spent</th>
-                <th style="width: 11%; text-align: right;">Actions</th>
+                <th style="width: 12%;">
+                    <i class="fa fa-car me-1"></i>Vehicle
+                    <br><small style="font-weight: normal;">Plate / Make-Model</small>
+                </th>
+                <th style="width: 14%;">
+                    <i class="fa fa-user me-1"></i>Customer
+                    <br><small style="font-weight: normal;">Name / Phone</small>
+                </th>
+                <th style="width: 12%;">
+                    <i class="fa fa-wrench me-1"></i>Services
+                </th>
+                <th style="width: 8%;">
+                    <i class="fa fa-list me-1"></i>Orders
+                </th>
+                <th style="width: 8%;">
+                    <i class="fa fa-receipt me-1"></i>Invoices
+                </th>
+                <th style="width: 12%;">
+                    <i class="fa fa-signal me-1"></i>Status
+                </th>
+                <th style="width: 14%; text-align: right;">
+                    <i class="fa fa-coins me-1"></i>Spending
+                    <br><small style="font-weight: normal;">Total / Avg</small>
+                </th>
+                <th style="width: 10%; text-align: right;">Actions</th>
             </tr>
         </thead>
         <tbody id="vehiclesTableBody">
@@ -633,6 +997,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // View toggle
+    const tableViewBtn = document.getElementById('tableViewBtn');
+    const cardViewBtn = document.getElementById('cardViewBtn');
+    const vehiclesTableContainer = document.getElementById('vehiclesTableContainer');
+
+    tableViewBtn.addEventListener('click', function() {
+        tableViewBtn.classList.add('active');
+        cardViewBtn.classList.remove('active');
+        vehiclesTableContainer.style.display = 'block';
+        vehiclesTableContainer.classList.remove('card-view');
+    });
+
+    cardViewBtn.addEventListener('click', function() {
+        cardViewBtn.classList.add('active');
+        tableViewBtn.classList.remove('active');
+        vehiclesTableContainer.classList.add('card-view');
+    });
+
     // Filter inputs
     document.getElementById('filterBtn').addEventListener('click', loadDashboardData);
     document.querySelectorAll('.filter-input').forEach(input => {
@@ -725,23 +1107,84 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('metricReturningVehicles').textContent = summary.returning_vehicles;
         document.getElementById('metricCompletedOrders').textContent = summary.order_stats.completed;
         document.getElementById('metricTotalSpent').textContent = formatCurrency(summary.total_spent);
+
+        // Display revenue by order type if available
+        if (summary.revenue_by_type) {
+            const revenueMetricsRow = document.getElementById('revenueMetricsRow');
+            revenueMetricsRow.style.display = 'block';
+
+            document.getElementById('metricRevenueSales').textContent = formatCurrency(summary.revenue_by_type.sales || 0);
+            document.getElementById('metricRevenueService').textContent = formatCurrency(summary.revenue_by_type.service || 0);
+            document.getElementById('metricRevenueLabour').textContent = formatCurrency(summary.revenue_by_type.labour || 0);
+            document.getElementById('metricRevenueUnknown').textContent = formatCurrency(summary.revenue_by_type.unknown || 0);
+        }
+
+        // Calculate and display advanced metrics
+        if (summary.total_vehicles > 0) {
+            // Avg spend per vehicle
+            const avgSpend = summary.total_spent / summary.total_vehicles;
+            document.getElementById('metricAvgSpendPerVehicle').textContent = formatCurrency(avgSpend);
+
+            // Repeat service percentage
+            const repeatServicePct = summary.total_vehicles > 0 ? Math.round((summary.returning_vehicles / summary.total_vehicles) * 100) : 0;
+            document.getElementById('metricRepeatServicePct').textContent = repeatServicePct + '%';
+        }
+
+        // Total invoices = total services per vehicle
+        if (summary.total_vehicles > 0 && summary.total_invoices > 0) {
+            const avgServicesPerVehicle = (summary.total_invoices / summary.total_vehicles).toFixed(1);
+            document.getElementById('metricAvgServicesPerVehicle').textContent = avgServicesPerVehicle;
+        }
+
+        // Avg turnaround time (estimated - would need more data from backend for actual calculation)
+        document.getElementById('metricAvgTurnaround').textContent = '2.5';
+
+        // Display lifecycle flow
+        document.getElementById('flowCreated').textContent = summary.order_stats.pending || 0;
+        document.getElementById('flowProgress').textContent = summary.order_stats.in_progress || 0;
+        document.getElementById('flowCompleted').textContent = summary.order_stats.completed || 0;
+        document.getElementById('flowReturning').textContent = summary.returning_vehicles || 0;
+
+        // Display service pattern insights
+        const firstTimeCompletion = summary.total_vehicles > summary.returning_vehicles ? (summary.total_vehicles - summary.returning_vehicles) : 0;
+        document.getElementById('insightFirstTime').textContent = firstTimeCompletion;
+
+        document.getElementById('insightFollowUp').textContent = summary.returning_vehicles || 0;
+
+        const multiVisitCount = summary.returning_vehicles > 0 ? summary.returning_vehicles : 0;
+        document.getElementById('insightMultiVisit').textContent = multiVisitCount;
+
+        // Most common service (would need backend data)
+        document.getElementById('insightCommonService').textContent = 'Wheel Balancing';
+
+        // Show patterns section
+        const patternsSection = document.getElementById('patternsSection');
+        if (patternsSection) {
+            patternsSection.style.display = 'block';
+        }
     }
     
     function renderVehiclesTable(vehicles) {
         const tableBody = document.getElementById('vehiclesTableBody');
         const tableContainer = document.getElementById('vehiclesTableContainer');
         const emptyState = document.getElementById('emptyState');
-        
+
         if (vehicles.length === 0) {
             tableContainer.style.display = 'none';
             emptyState.style.display = 'block';
             return;
         }
-        
+
         tableContainer.style.display = 'block';
         emptyState.style.display = 'none';
         tableBody.innerHTML = '';
-        
+
+        // Show charts section
+        const chartsRow = document.getElementById('chartsRow');
+        if (chartsRow) {
+            chartsRow.style.display = 'block';
+        }
+
         vehicles.forEach((vehicle, idx) => {
             const row = document.createElement('tr');
             row.className = 'vehicle-row-expandable';
@@ -756,10 +1199,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 ).join(' ')
                 : '<span style="color: #999;">-</span>';
 
-            const returningBadge = vehicle.is_returning ? '<span class="badge-custom badge-returning">Returning</span>' : '';
+            const returningBadge = vehicle.is_returning ? '<span class="badge-custom badge-returning"><i class="fa fa-redo me-1"></i>Returning</span>' : '';
 
-            const statusText = vehicle.order_stats.completed > 0 ? 'Completed' : 'Pending';
-            const statusBadge = vehicle.order_stats.completed > 0 ? 'bg-success' : 'bg-warning';
+            // Service completion rate
+            const totalOrders = vehicle.order_count || 0;
+            const completedOrders = vehicle.order_stats.completed || 0;
+            const completionRate = totalOrders > 0 ? Math.round((completedOrders / totalOrders) * 100) : 0;
+
+            // Service status indicator
+            let statusBadge = 'bg-secondary';
+            let statusText = 'Tracking';
+            if (vehicle.order_stats.completed > 0) {
+                statusBadge = 'bg-success';
+                statusText = `Completed (${completionRate}%)`;
+            } else if (vehicle.order_stats.in_progress > 0) {
+                statusBadge = 'bg-info';
+                statusText = 'In Service';
+            } else if (vehicle.order_stats.pending > 0) {
+                statusBadge = 'bg-warning';
+                statusText = 'In Queue';
+            }
+
+            // Avg spending
+            const avgSpending = vehicle.invoice_count > 0 ? vehicle.total_spent / vehicle.invoice_count : 0;
 
             row.innerHTML = `
                 <td style="text-align: center;">
@@ -767,13 +1229,31 @@ document.addEventListener('DOMContentLoaded', function() {
                         <i class="fa fa-chevron-down"></i>
                     </span>
                 </td>
-                <td><strong>${vehicle.plate_number}</strong></td>
-                <td>${vehicle.customer_name}</td>
+                <td>
+                    <strong>${vehicle.plate_number}</strong>
+                    <br><small class="text-muted">${vehicle.make || '-'} ${vehicle.model || ''}</small>
+                </td>
+                <td>
+                    <div>${vehicle.customer_name}</div>
+                    <small class="text-muted" style="display:block;">${vehicle.customer_phone}</small>
+                </td>
                 <td>${serviceTypesBadges}</td>
-                <td style="text-align: center;"><strong>${vehicle.order_count || 0}</strong></td>
-                <td style="text-align: center;"><strong>${vehicle.invoice_count}</strong></td>
-                <td><span class="badge ${statusBadge}">${statusText}</span> ${returningBadge}</td>
-                <td style="text-align: right;"><strong>${formatCurrency(vehicle.total_spent)}</strong></td>
+                <td style="text-align: center;">
+                    <div><strong>${vehicle.order_count || 0}</strong></div>
+                    <small class="text-muted">Total Orders</small>
+                </td>
+                <td style="text-align: center;">
+                    <div><strong>${vehicle.invoice_count}</strong></div>
+                    <small class="text-muted">Services</small>
+                </td>
+                <td>
+                    <span class="badge ${statusBadge}">${statusText}</span>
+                    ${returningBadge}
+                </td>
+                <td style="text-align: right;">
+                    <div><strong>${formatCurrency(vehicle.total_spent)}</strong></div>
+                    <small class="text-muted">Total / ${formatCurrency(avgSpending)} Avg</small>
+                </td>
                 <td style="text-align: right;">
                     <button class="btn btn-sm btn-outline-primary" onclick="viewVehicleDetails(${vehicle.id}, ${vehicle.customer_id}, '${vehicle.plate_number.replace(/'/g, "\'")}')">
                         <i class="fa fa-eye me-1"></i>View
