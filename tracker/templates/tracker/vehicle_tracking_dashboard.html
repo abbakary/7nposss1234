@@ -73,6 +73,169 @@
     outline: none;
 }
 
+.tracking-status-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    border-left: 5px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: var(--transition);
+    height: 100%;
+}
+
+.tracking-status-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.tracking-status-card.active-vehicles {
+    border-left-color: #0d6efd;
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, transparent 100%);
+}
+
+.tracking-status-card.services-completed {
+    border-left-color: #28a745;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, transparent 100%);
+}
+
+.tracking-status-card.repeat-customers {
+    border-left-color: #20c997;
+    background: linear-gradient(135deg, rgba(32, 201, 151, 0.05) 0%, transparent 100%);
+}
+
+.tracking-status-card.total-revenue {
+    border-left-color: #ffc107;
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.05) 0%, transparent 100%);
+}
+
+.status-icon {
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    flex-shrink: 0;
+}
+
+.tracking-status-card.active-vehicles .status-icon {
+    color: #0d6efd;
+}
+
+.tracking-status-card.services-completed .status-icon {
+    color: #28a745;
+}
+
+.tracking-status-card.repeat-customers .status-icon {
+    color: #20c997;
+}
+
+.tracking-status-card.total-revenue .status-icon {
+    color: #ffc107;
+}
+
+.status-content {
+    flex: 1;
+}
+
+.status-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    line-height: 1.2;
+}
+
+.status-label {
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.status-trend {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-trend i {
+    font-size: 0.75rem;
+}
+
+.period-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.period-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.period-tabs button {
+    padding: 10px 20px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.period-tabs button.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.period-tabs button:hover {
+    border-color: var(--primary-color);
+}
+
+.view-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.view-btn {
+    padding: 10px 15px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.view-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.view-btn:hover {
+    border-color: var(--primary-color);
+}
+
+.advanced-metrics-section {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
+}
+
 .metric-card {
     background: white;
     padding: 20px;
@@ -133,28 +296,6 @@
     font-size: 0.95rem;
     color: #666;
     font-weight: 500;
-}
-
-.chart-container {
-    position: relative;
-    height: 350px;
-    margin-bottom: 30px;
-    background: white;
-    padding: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    transition: var(--transition);
-}
-
-.chart-container:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-}
-
-.chart-container h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #333;
-    font-weight: 600;
 }
 
 .vehicle-table {
@@ -325,71 +466,6 @@
     transform: scale(1.1);
 }
 
-.period-tabs {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.period-controls {
-    display: flex;
-    gap: 10px;
-}
-
-.period-tabs button {
-    padding: 10px 20px;
-    background: white;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.period-tabs button.active {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-.period-tabs button:hover {
-    border-color: var(--primary-color);
-}
-
-.view-controls {
-    display: flex;
-    gap: 8px;
-}
-
-.view-btn {
-    padding: 10px 15px;
-    background: white;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: var(--transition);
-    font-size: 1rem;
-}
-
-.view-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-.view-btn:hover {
-    border-color: var(--primary-color);
-}
-
-.advanced-metrics-section {
-    background: white;
-    padding: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-}
-
 .loading-spinner {
     display: none;
     text-align: center;
@@ -419,220 +495,6 @@
     font-size: 3rem;
     margin-bottom: 20px;
     opacity: 0.5;
-}
-
-.chart-skeleton {
-    height: 100%;
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-    border-radius: 4px;
-}
-
-@keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-.lifecycle-flow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-
-.lifecycle-stage {
-    flex: 1;
-    text-align: center;
-    min-width: 100px;
-}
-
-.stage-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
-    font-size: 1.2rem;
-    color: white;
-    transition: var(--transition);
-}
-
-.stage-icon.pending {
-    background-color: #ffc107;
-}
-
-.stage-icon.progress {
-    background-color: #0d6efd;
-}
-
-.stage-icon.completed {
-    background-color: #28a745;
-}
-
-.stage-icon.returning {
-    background-color: #20c997;
-}
-
-.stage-label {
-    font-weight: 600;
-    color: #333;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-}
-
-.stage-count {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-.flow-arrow {
-    font-size: 1.5rem;
-    color: #ddd;
-    flex: 0 0 auto;
-}
-
-.pattern-insights {
-    display: grid;
-    gap: 15px;
-}
-
-.insight-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 12px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    transition: var(--transition);
-}
-
-.insight-item:hover {
-    background-color: #e9ecef;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.insight-icon {
-    font-size: 1.5rem;
-    flex: 0 0 auto;
-}
-
-.insight-content {
-    flex: 1;
-}
-
-.insight-label {
-    font-size: 0.85rem;
-    color: #666;
-    margin-bottom: 4px;
-}
-
-.insight-value {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.tracking-status-card {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 20px;
-    box-shadow: var(--box-shadow);
-    border-left: 5px solid var(--primary-color);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    transition: var(--transition);
-    height: 100%;
-}
-
-.tracking-status-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-}
-
-.tracking-status-card.active-vehicles {
-    border-left-color: #0d6efd;
-    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, transparent 100%);
-}
-
-.tracking-status-card.services-completed {
-    border-left-color: #28a745;
-    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, transparent 100%);
-}
-
-.tracking-status-card.repeat-customers {
-    border-left-color: #20c997;
-    background: linear-gradient(135deg, rgba(32, 201, 151, 0.05) 0%, transparent 100%);
-}
-
-.tracking-status-card.total-revenue {
-    border-left-color: #ffc107;
-    background: linear-gradient(135deg, rgba(255, 193, 7, 0.05) 0%, transparent 100%);
-}
-
-.status-icon {
-    font-size: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: white;
-    flex-shrink: 0;
-}
-
-.tracking-status-card.active-vehicles .status-icon {
-    color: #0d6efd;
-}
-
-.tracking-status-card.services-completed .status-icon {
-    color: #28a745;
-}
-
-.tracking-status-card.repeat-customers .status-icon {
-    color: #20c997;
-}
-
-.tracking-status-card.total-revenue .status-icon {
-    color: #ffc107;
-}
-
-.status-content {
-    flex: 1;
-}
-
-.status-value {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    line-height: 1.2;
-}
-
-.status-label {
-    font-size: 0.95rem;
-    color: #666;
-    font-weight: 500;
-    margin-top: 5px;
-}
-
-.status-trend {
-    font-size: 0.85rem;
-    color: #999;
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.status-trend i {
-    font-size: 0.75rem;
 }
 
 .vehicle-tracking-section {
@@ -697,60 +559,6 @@
     font-size: 0.85rem;
     color: #666;
     font-weight: 500;
-}
-
-.vehicle-health-indicator {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.health-score {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-weight: bold;
-    color: white;
-    flex-shrink: 0;
-}
-
-.health-score.excellent {
-    background-color: #28a745;
-}
-
-.health-score.good {
-    background-color: #20c997;
-}
-
-.health-score.fair {
-    background-color: #ffc107;
-    color: #333;
-}
-
-.health-score.poor {
-    background-color: #dc3545;
-}
-
-.health-content {
-    flex: 1;
-}
-
-.health-title {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 2px;
-}
-
-.health-detail {
-    font-size: 0.9rem;
-    color: #666;
 }
 
 .comparison-metrics {
@@ -884,20 +692,6 @@
         grid-template-columns: 1fr;
     }
 
-    .metric-card {
-        margin-bottom: 10px;
-    }
-
-    .vehicle-table th,
-    .vehicle-table td {
-        padding: 10px 8px;
-        font-size: 0.9rem;
-    }
-
-    .chart-container {
-        height: 250px;
-    }
-
     .period-tabs {
         flex-direction: column;
         align-items: flex-start;
@@ -915,14 +709,6 @@
 
     .invoice-amount {
         margin-top: 10px;
-    }
-
-    .lifecycle-flow {
-        gap: 5px;
-    }
-
-    .flow-arrow {
-        font-size: 1rem;
     }
 
     .tracking-status-card {
@@ -1031,68 +817,6 @@
     </div>
 </div>
 
-<!-- Key Metrics & Advanced Stats -->
-<div class="row g-3 mb-4" id="metricsRow">
-    <div class="col-md-3">
-        <div class="metric-card">
-            <div class="metric-label">Total Vehicles</div>
-            <div class="metric-value" id="metricTotalVehicles">-</div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="metric-card returning">
-            <div class="metric-label">Returning Vehicles</div>
-            <div class="metric-value" id="metricReturningVehicles">-</div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="metric-card completed">
-            <div class="metric-label">Completed Orders</div>
-            <div class="metric-value" id="metricCompletedOrders">-</div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="metric-card spent">
-            <div class="metric-label">Total Spent</div>
-            <div class="metric-value" id="metricTotalSpent">-</div>
-        </div>
-    </div>
-</div>
-
-<!-- Advanced Metrics Section -->
-<div class="advanced-metrics-section mb-4">
-    <!-- Revenue Breakdown (Horizontal, Compact) -->
-    <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px;">
-        <h6 style="color: #333; margin-bottom: 12px; font-size: 0.95rem;">
-            <i class="fa fa-money-bill-wave me-2"></i>Revenue Breakdown
-        </h6>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
-            <div style="padding: 10px; background: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px; text-align: center;">
-                <div style="font-size: 0.8rem; color: #666; margin-bottom: 4px;"><i class="fa fa-shopping-cart me-1"></i>Sales</div>
-                <div style="font-size: 1.2rem; font-weight: bold; color: #28a745;" id="metricRevenueSales">0</div>
-                <div style="font-size: 0.75rem; color: #999;">TSH</div>
-            </div>
-            <div style="padding: 10px; background: #f8f9fa; border-left: 3px solid #0d6efd; border-radius: 4px; text-align: center;">
-                <div style="font-size: 0.8rem; color: #666; margin-bottom: 4px;"><i class="fa fa-wrench me-1"></i>Service</div>
-                <div style="font-size: 1.2rem; font-weight: bold; color: #0d6efd;" id="metricRevenueService">0</div>
-                <div style="font-size: 0.75rem; color: #999;">TSH</div>
-            </div>
-            <div style="padding: 10px; background: #f8f9fa; border-left: 3px solid #0dcaf0; border-radius: 4px; text-align: center;">
-                <div style="font-size: 0.8rem; color: #666; margin-bottom: 4px;"><i class="fa fa-tools me-1"></i>Labour</div>
-                <div style="font-size: 1.2rem; font-weight: bold; color: #0dcaf0;" id="metricRevenueLabour">0</div>
-                <div style="font-size: 0.75rem; color: #999;">TSH</div>
-            </div>
-            <div style="padding: 10px; background: #f8f9fa; border-left: 3px solid #ffc107; border-radius: 4px; text-align: center;">
-                <div style="font-size: 0.8rem; color: #666; margin-bottom: 4px;"><i class="fa fa-question-circle me-1"></i>Other</div>
-                <div style="font-size: 1.2rem; font-weight: bold; color: #ffc107;" id="metricRevenueUnknown">0</div>
-                <div style="font-size: 0.75rem; color: #999;">TSH</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <!-- Filters -->
 <div class="filter-card">
     <div class="filter-row">
@@ -1133,7 +857,34 @@
     </div>
 </div>
 
-
+<!-- Advanced Metrics Section - Revenue Breakdown (Horizontal, Compact) -->
+<div class="advanced-metrics-section mb-4">
+    <h6 style="color: #333; margin-bottom: 12px; font-size: 0.95rem;">
+        <i class="fa fa-money-bill-wave me-2"></i>Revenue Breakdown
+    </h6>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
+        <div style="padding: 10px; background: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px; text-align: center;">
+            <div style="font-size: 0.8rem; color: #666; margin-bottom: 4px;"><i class="fa fa-shopping-cart me-1"></i>Sales</div>
+            <div style="font-size: 1.2rem; font-weight: bold; color: #28a745;" id="metricRevenueSales">0</div>
+            <div style="font-size: 0.75rem; color: #999;">TSH</div>
+        </div>
+        <div style="padding: 10px; background: #f8f9fa; border-left: 3px solid #0d6efd; border-radius: 4px; text-align: center;">
+            <div style="font-size: 0.8rem; color: #666; margin-bottom: 4px;"><i class="fa fa-wrench me-1"></i>Service</div>
+            <div style="font-size: 1.2rem; font-weight: bold; color: #0d6efd;" id="metricRevenueService">0</div>
+            <div style="font-size: 0.75rem; color: #999;">TSH</div>
+        </div>
+        <div style="padding: 10px; background: #f8f9fa; border-left: 3px solid #0dcaf0; border-radius: 4px; text-align: center;">
+            <div style="font-size: 0.8rem; color: #666; margin-bottom: 4px;"><i class="fa fa-tools me-1"></i>Labour</div>
+            <div style="font-size: 1.2rem; font-weight: bold; color: #0dcaf0;" id="metricRevenueLabour">0</div>
+            <div style="font-size: 0.75rem; color: #999;">TSH</div>
+        </div>
+        <div style="padding: 10px; background: #f8f9fa; border-left: 3px solid #ffc107; border-radius: 4px; text-align: center;">
+            <div style="font-size: 0.8rem; color: #666; margin-bottom: 4px;"><i class="fa fa-question-circle me-1"></i>Other</div>
+            <div style="font-size: 1.2rem; font-weight: bold; color: #ffc107;" id="metricRevenueUnknown">0</div>
+            <div style="font-size: 0.75rem; color: #999;">TSH</div>
+        </div>
+    </div>
+</div>
 
 <!-- Loading Indicator -->
 <div class="loading-spinner" id="loadingSpinner">
@@ -1311,11 +1062,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     renderVehiclesTable(trackingData.data);
                     lastTrackingVehicles = trackingData.data || [];
                 } else {
-                    console.error('API returned success: false', trackingData);
+                    console.error('API error:', trackingData);
                 }
                 showLoadingSpinner(false);
                 isInitialLoad = false;
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.error('Error loading dashboard data:', error);
                 showLoadingSpinner(false);
                 isInitialLoad = false;
@@ -1323,18 +1075,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function renderMetrics(summary) {
-        document.getElementById('metricTotalVehicles').textContent = summary.total_vehicles;
-        document.getElementById('metricReturningVehicles').textContent = summary.returning_vehicles;
-        document.getElementById('metricCompletedOrders').textContent = summary.order_stats.completed;
-        document.getElementById('metricTotalSpent').textContent = formatCurrency(summary.total_spent);
-
-        // Update quick overview cards
         document.getElementById('quickTotalVehicles').textContent = summary.total_vehicles;
         document.getElementById('quickCompletedServices').textContent = summary.total_invoices;
         document.getElementById('quickReturningCount').textContent = summary.returning_vehicles;
         document.getElementById('quickTotalRevenue').textContent = formatCurrency(summary.total_spent);
 
-        // Update trends
         const completionRate = summary.total_invoices > 0 ? Math.round((summary.order_stats.completed / summary.total_invoices) * 100) : 0;
         document.getElementById('quickCompletionRate').textContent = completionRate + '% completion';
 
@@ -1348,11 +1093,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('metricRevenueLabour').textContent = formatCurrency(summary.revenue_by_type.labour || 0);
             document.getElementById('metricRevenueUnknown').textContent = formatCurrency(summary.revenue_by_type.unknown || 0);
         }
-    }
-    
-    function renderServiceTimeline(vehicles) {
-        // Timeline section removed for simplification
-        return;
     }
 
     function renderVehiclesTable(vehicles) {
@@ -1370,16 +1110,9 @@ document.addEventListener('DOMContentLoaded', function() {
         emptyState.style.display = 'none';
         tableBody.innerHTML = '';
 
-        // Render timeline before table
-        renderServiceTimeline(vehicles);
-
         vehicles.forEach((vehicle, idx) => {
             const row = document.createElement('tr');
             row.className = 'vehicle-row-expandable';
-
-            const orderTypesBadges = vehicle.order_types.map(type =>
-                `<span class="badge-custom badge-${type}">${type}</span>`
-            ).join(' ');
 
             const serviceTypesBadges = vehicle.service_types && vehicle.service_types.length > 0
                 ? vehicle.service_types.map(type =>
@@ -1389,12 +1122,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const returningBadge = vehicle.is_returning ? '<span class="badge-custom badge-returning"><i class="fa fa-redo me-1"></i>Returning</span>' : '';
 
-            // Service completion rate
             const totalOrders = vehicle.order_count || 0;
             const completedOrders = vehicle.order_stats.completed || 0;
             const completionRate = totalOrders > 0 ? Math.round((completedOrders / totalOrders) * 100) : 0;
 
-            // Service status indicator
             let statusBadge = 'bg-secondary';
             let statusText = 'Tracking';
             let statusIcon = 'fa-info-circle';
@@ -1413,10 +1144,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 statusIcon = 'fa-clock';
             }
 
-            // Avg spending
             const avgSpending = vehicle.invoice_count > 0 ? vehicle.total_spent / vehicle.invoice_count : 0;
-
-            // Calculate tracking indicator
             const trackingStatus = vehicle.is_returning ?
                 '<i class="fa fa-sync-alt me-1" style="color: #20c997;"></i>Regular Customer' :
                 '<i class="fa fa-check me-1" style="color: #0d6efd;"></i>Active Tracking';
@@ -1510,7 +1238,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <th style="text-align: center;">Qty</th>
                                 <th style="text-align: right;">Unit Price</th>
                                 <th style="text-align: right;">Total</th>
-                          
                             </tr>
                         </thead>
                         <tbody>
@@ -1527,7 +1254,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <td style="text-align: center;">${formatQty(item.qty)}</td>
                                     <td style="text-align: right;">${formatCurrency(item.unit_price)}</td>
                                     <td style="text-align: right;"><strong>${formatCurrency(item.total)}</strong></td>
-           
                                 </tr>
                                 `;
                             }).join('')}
@@ -1552,116 +1278,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    function updateCharts(analyticsData) {
-        // Charts removed for simplification
-        return;
-    }
-
-    function updateTrendChart(trends) {
-        // Trend chart removed for simplification
-        return;
-    }
-
-    function updateTypeChart(spendingByType) {
-        // Type chart removed for simplification
-        return;
-    }
-
-    function updateTopVehiclesChart(topVehicles) {
-        // Top vehicles chart removed for simplification
-        return;
-    }
-    
-    function buildAnalyticsFromTracking(vehicles, period) {
-        try {
-            // Trends: sum invoice totals by day/week/month; count unique vehicles per bucket
-            const groupMap = new Map();
-            const vehSets = new Map();
-            vehicles.forEach(v => {
-                (v.invoices || []).forEach(inv => {
-                    const d = new Date(inv.invoice_date);
-                    if (isNaN(d)) return;
-                    let key;
-                    if (period === 'daily') {
-                        key = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-                    } else if (period === 'weekly') {
-                        const day = d.getDay();
-                        const monday = new Date(d);
-                        monday.setDate(d.getDate() - ((day + 6) % 7));
-                        key = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate());
-                    } else {
-                        key = new Date(d.getFullYear(), d.getMonth(), 1);
-                    }
-                    const keyStr = key.toISOString().split('T')[0];
-                    const current = groupMap.get(keyStr) || { total_amount: 0, invoice_count: 0 };
-                    current.total_amount += (inv.total_amount || 0);
-                    current.invoice_count += 1;
-                    groupMap.set(keyStr, current);
-                    const vset = vehSets.get(keyStr) || new Set();
-                    vset.add(v.id || v.plate_number || v.customer_name);
-                    vehSets.set(keyStr, vset);
-                });
-            });
-            const trends = Array.from(groupMap.entries()).sort((a,b) => new Date(a[0]) - new Date(b[0])).map(([dateStr, data]) => ({
-                date: dateStr,
-                total_amount: data.total_amount,
-                invoice_count: data.invoice_count,
-                vehicle_count: (vehSets.get(dateStr) || new Set()).size
-            }));
-
-            // Spending by type: sum line item totals grouped by order_type
-            const typeTotals = new Map();
-            vehicles.forEach(v => {
-                (v.invoices || []).forEach(inv => {
-                    (inv.line_items || []).forEach(li => {
-                        const t = li.order_type || 'sales';
-                        const cur = typeTotals.get(t) || { total: 0, count: 0 };
-                        cur.total += (li.total || 0);
-                        cur.count += 1;
-                        typeTotals.set(t, cur);
-                    });
-                });
-            });
-            const spending_by_type = Array.from(typeTotals.entries()).map(([type, info]) => ({
-                type,
-                total: info.total,
-                count: info.count,
-                average: info.count > 0 ? info.total / info.count : 0
-            }));
-
-            // Top vehicles by spending
-            const top_vehicles = vehicles
-                .map(v => ({ 
-                    plate_number: v.plate_number, 
-                    customer_name: v.customer_name, 
-                    total_spent: v.total_spent || 0, 
-                    invoice_count: v.invoice_count || 0, 
-                    average_per_invoice: (v.invoice_count || 0) > 0 ? (v.total_spent || 0) / v.invoice_count : 0 
-                }))
-                .sort((a,b) => b.total_spent - a.total_spent)
-                .slice(0, 10);
-
-            return { trends, spending_by_type, top_vehicles };
-        } catch (e) {
-            console.warn('Fallback analytics build failed:', e);
-            return { trends: [], spending_by_type: [], top_vehicles: [] };
-        }
-    }
-    
     function showLoadingSpinner(show) {
         document.getElementById('loadingSpinner').classList.toggle('active', show);
-    }
-
-    function showChartSkeletons(show) {
-        // Chart skeletons removed for simplification
-        return;
-    }
-
-    function ensureCanvasesVisible() {
-        // Chart canvases removed for simplification
-        return;
-            if (el) el.style.display = 'block';
-        });
     }
     
     function formatCurrency(amount) {
@@ -1706,13 +1324,11 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) {}
     };
 
-    // Diagnostics and seeding functions
     function checkDataDiagnostics() {
         fetch('/tracker/api/vehicles/tracking/diagnostics/')
             .then(r => r.json())
             .then(data => {
                 if (data.success && data.status === 'warning' && data.counts.invoices === 0) {
-                    // No data exists, show seed button
                     const seedBtn = document.getElementById('seedDataBtn');
                     if (seedBtn) {
                         seedBtn.style.display = 'inline-block';
@@ -1739,7 +1355,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     alert('Sample data created successfully! The dashboard will refresh.');
-                    // Reload the dashboard data
                     setTimeout(loadDashboardData, 500);
                 } else {
                     alert('Error: ' + data.message);
@@ -1754,7 +1369,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     };
 
-    // Load initial data
     loadDashboardData();
 });
 </script>
