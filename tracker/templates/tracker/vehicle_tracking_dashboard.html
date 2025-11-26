@@ -1133,17 +1133,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const tableBody = document.getElementById('vehiclesTableBody');
         const tableContainer = document.getElementById('vehiclesTableContainer');
         const emptyState = document.getElementById('emptyState');
-        
+
         if (vehicles.length === 0) {
             tableContainer.style.display = 'none';
             emptyState.style.display = 'block';
             return;
         }
-        
+
         tableContainer.style.display = 'block';
         emptyState.style.display = 'none';
         tableBody.innerHTML = '';
-        
+
+        // Show charts section
+        const chartsRow = document.getElementById('chartsRow');
+        if (chartsRow) {
+            chartsRow.style.display = 'block';
+        }
+
         vehicles.forEach((vehicle, idx) => {
             const row = document.createElement('tr');
             row.className = 'vehicle-row-expandable';
