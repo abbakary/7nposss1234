@@ -1604,36 +1604,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateTopVehiclesChart(topVehicles) {
         // Top vehicles chart removed for simplification
         return;
-                        callbacks: {
-                            label: function(context) {
-                                return `Total Spent: ${formatCurrency(context.raw)}`;
-                            }
-                        }
-                    }
-                }, 
-                scales: { 
-                    x: { 
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return formatCurrency(value);
-                            }
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            font: {
-                                size: 11
-                            }
-                        }
-                    }
-                },
-                animation: {
-                    duration: isInitialLoad ? 0 : 1000,
-                    easing: 'easeOutQuart'
-                }
-            }
-        });
     }
     
     function buildAnalyticsFromTracking(vehicles, period) {
