@@ -543,6 +543,15 @@ def api_upload_extract_invoice(request):
             return out
 
         aggregated = _aggregate_items(items) if items else []
+        # Get order type mapping for item codes
+        item_codes = [it.get('code') for it in aggregated if it.get('code')]
+        try:
+            from tracker.views_invoice_upload import _get_item_code_categories
+            code_order_types = _get_item_code_categories(item_codes)
+        except Exception as e:
+            logger.warning(f"Failed to get code categories: {e}")
+            code_order_types = {}
+
         # Replace previous items if reusing an existing invoice, then create new ones
         try:
             try:
@@ -555,9 +564,16 @@ def api_upload_extract_invoice(request):
                 qty = Decimal(str(it.get('qty') or '1'))
                 price = Decimal(str(it.get('unit_price') or '0'))
                 line_total = qty * price
+                code = it.get('code')
+
+                # Determine order_type from code
+                order_type = 'unknown'
+                if code and code in code_order_types:
+                    order_type = code_order_types[code].get('order_type', 'unknown')
+
                 to_create.append(InvoiceLineItem(
                     invoice=inv,
-                    code=it.get('code') or None,
+                    code=code or None,
                     description=it.get('description') or 'Item',
                     quantity=qty,
                     unit=it.get('unit') or None,
@@ -565,9 +581,11 @@ def api_upload_extract_invoice(request):
                     tax_rate=Decimal('0'),
                     line_total=line_total,
                     tax_amount=Decimal('0'),
+                    order_type=order_type,
                 ))
             if to_create:
                 InvoiceLineItem.objects.bulk_create(to_create)
+                logger.info(f"Created {len(to_create)} line items from extraction with order types")
         except Exception as e:
             logger.warning(f"Failed to bulk create invoice line items: {e}")
 
