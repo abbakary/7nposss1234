@@ -96,7 +96,7 @@ def api_vehicle_tracking_data(request):
         except Exception:
             start_date = end_date - timedelta(days=30)
 
-        logger.info(f"Vehicle tracking query - Period: {period}, Date range: {start_date} to {end_date}, Search: '{search_query}'")
+        logger.info(f"Vehicle tracking query - Period: {period}, Date range: {start_date} to {end_date}, Search: '{search_query}', User branch: {user_branch}")
 
         invoices_qs_all = Invoice.objects.select_related('customer', 'vehicle', 'order')
         invoices_qs = invoices_qs_all
