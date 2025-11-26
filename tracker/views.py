@@ -3394,6 +3394,35 @@ def complete_order(request: HttpRequest, pk: int):
         except Exception:
             pass
 
+    # Check if order exceeds 9+ working hours and require delay reason
+    exceeds_9_hours = False
+    try:
+        from .utils.time_utils import is_order_overdue
+        if o.started_at:
+            exceeds_9_hours = is_order_overdue(o.started_at)
+    except Exception:
+        pass
+
+    if exceeds_9_hours:
+        # Get delay reason from POST
+        delay_reason_id = request.POST.get('delay_reason')
+        if not delay_reason_id:
+            messages.error(request, 'Order has exceeded 9 working hours. Please select a delay reason before completing.')
+            return redirect('tracker:order_detail', pk=o.id)
+
+        # Save delay reason
+        try:
+            from tracker.models import DelayReason
+            delay_reason = DelayReason.objects.get(id=delay_reason_id)
+            o.delay_reason = delay_reason
+            o.delay_reason_reported_at = timezone.now()
+            o.delay_reason_reported_by = request.user
+            o.exceeded_9_hours = True
+            o.save(update_fields=['delay_reason', 'delay_reason_reported_at', 'delay_reason_reported_by', 'exceeded_9_hours'])
+        except Exception as e:
+            messages.error(request, f'Error saving delay reason: {str(e)}')
+            return redirect('tracker:order_detail', pk=o.id)
+
     if not sig and sig_data.startswith('data:image/') and ';base64,' in sig_data:
         try:
             header, b64 = sig_data.split(';base64,', 1)
