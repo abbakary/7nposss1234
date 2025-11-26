@@ -4765,7 +4765,6 @@ def api_notifications_summary(request: HttpRequest):
     """Return notification summary for header dropdown: today's visitors, low stock, overdue orders"""
     from datetime import timedelta
     stock_threshold = int(request.GET.get('stock_threshold', 5) or 5)
-    overdue_hours = int(request.GET.get('overdue_hours', 24) or 24)
 
     # Normalize statuses once per request
     _mark_overdue_orders()
@@ -4773,7 +4772,7 @@ def api_notifications_summary(request: HttpRequest):
     # Use timezone-aware date for consistency
     today_date = timezone.localdate()
     now = timezone.now()
-    cutoff = now - timedelta(hours=overdue_hours)
+    cutoff = now - timedelta(hours=24)
 
     # Today's visitors (customers who registered today OR have orders today)
     from django.db.models import Q
