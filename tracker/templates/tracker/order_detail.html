@@ -1597,7 +1597,7 @@
     if (exceeds9Hours) {
       delayReasonRequired.style.display = 'inline';
       delayReasonOptionalText.style.display = 'none';
-      delayReasonSection.classList.add('bg-danger-light');
+      delayReasonSection.classList.add('border', 'border-danger', 'bg-danger', 'bg-opacity-10', 'p-3', 'rounded');
       delayReasonHelpText.textContent = 'This order exceeded 9 working hours. You must select a delay reason.';
     }
   }
