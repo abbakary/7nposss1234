@@ -1176,6 +1176,95 @@
     </div>
 </div>
 
+<!-- Tracking Performance Comparison -->
+<div class="vehicle-tracking-section mb-4" id="comparisonSection" style="display:none;">
+    <h5 class="section-title">
+        <i class="fa fa-chart-bar"></i>Performance Metrics
+    </h5>
+    <div class="row g-3">
+        <div class="col-lg-6">
+            <div class="comparison-metrics">
+                <div class="comparison-card">
+                    <div class="comparison-label">
+                        <span>Avg. Service Cost</span>
+                    </div>
+                    <div class="comparison-value" id="compAvgCost">0</div>
+                    <div class="comparison-change positive">
+                        <i class="fa fa-info-circle"></i> Per vehicle
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <div class="comparison-label">
+                        <span>Service Completion Rate</span>
+                    </div>
+                    <div class="comparison-value" id="compCompletionRate">0%</div>
+                    <div class="comparison-change positive">
+                        <i class="fa fa-arrow-up"></i> Improving
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="comparison-metrics">
+                <div class="comparison-card">
+                    <div class="comparison-label">
+                        <span>Avg. Days Between Services</span>
+                    </div>
+                    <div class="comparison-value" id="compDaysBetween">0</div>
+                    <div class="comparison-change" id="compDaysChange">
+                        <i class="fa fa-info-circle"></i> Service interval
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <div class="comparison-label">
+                        <span>Active Vehicles This Period</span>
+                    </div>
+                    <div class="comparison-value" id="compActiveVehicles">0</div>
+                    <div class="comparison-change positive">
+                        <i class="fa fa-users"></i> Tracking active
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fleet Health Overview -->
+<div class="vehicle-tracking-section mb-4" id="healthSection" style="display:none;">
+    <h5 class="section-title">
+        <i class="fa fa-heartbeat"></i>Fleet Health Overview
+    </h5>
+    <div id="fleetHealthContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+        <div class="vehicle-health-indicator">
+            <div class="health-score excellent">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="health-content">
+                <div class="health-title">Fleet Status</div>
+                <div class="health-detail" id="fleetHealthStatus">Good - All systems operational</div>
+            </div>
+        </div>
+        <div class="vehicle-health-indicator">
+            <div class="health-score good">
+                <i class="fa fa-sync-alt"></i>
+            </div>
+            <div class="health-content">
+                <div class="health-title">Service Status</div>
+                <div class="health-detail" id="fleetServiceStatus">Most vehicles on schedule</div>
+            </div>
+        </div>
+        <div class="vehicle-health-indicator">
+            <div class="health-score good">
+                <i class="fa fa-wrench"></i>
+            </div>
+            <div class="health-content">
+                <div class="health-title">Maintenance</div>
+                <div class="health-detail" id="fleetMaintenanceStatus">Regular maintenance tracked</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- Charts Section -->
