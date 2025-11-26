@@ -3299,6 +3299,16 @@ def order_detail(request: HttpRequest, pk: int):
     except Exception:
         delay_reasons_json = {}
 
+    # Prepare delay reasons JSON for template
+    delay_reasons_for_template = {}
+    try:
+        from tracker.models import DelayReasonCategory, DelayReason
+        for category_obj in delay_reason_categories:
+            reasons_list = list(DelayReason.objects.filter(category=category_obj, is_active=True).values('id', 'reason_text'))
+            delay_reasons_for_template[category_obj.category] = reasons_list
+    except Exception:
+        delay_reasons_for_template = delay_reasons_by_category
+
     context = {
         "order": order,
         "invoice": invoice,
@@ -3308,7 +3318,7 @@ def order_detail(request: HttpRequest, pk: int):
         "line_item_categories": line_item_categories,
         "exceeds_9_hours": exceeds_9_hours,
         "delay_reason_categories": delay_reason_categories,
-        "delay_reasons_by_category": delay_reasons_by_category,
+        "delay_reasons_by_category": delay_reasons_for_template,
     }
     return render(request, "tracker/order_detail.html", context)
 
