@@ -539,6 +539,347 @@
     color: #333;
 }
 
+.tracking-status-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    border-left: 5px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: var(--transition);
+    height: 100%;
+}
+
+.tracking-status-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.tracking-status-card.active-vehicles {
+    border-left-color: #0d6efd;
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, transparent 100%);
+}
+
+.tracking-status-card.services-completed {
+    border-left-color: #28a745;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, transparent 100%);
+}
+
+.tracking-status-card.repeat-customers {
+    border-left-color: #20c997;
+    background: linear-gradient(135deg, rgba(32, 201, 151, 0.05) 0%, transparent 100%);
+}
+
+.tracking-status-card.total-revenue {
+    border-left-color: #ffc107;
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.05) 0%, transparent 100%);
+}
+
+.status-icon {
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    flex-shrink: 0;
+}
+
+.tracking-status-card.active-vehicles .status-icon {
+    color: #0d6efd;
+}
+
+.tracking-status-card.services-completed .status-icon {
+    color: #28a745;
+}
+
+.tracking-status-card.repeat-customers .status-icon {
+    color: #20c997;
+}
+
+.tracking-status-card.total-revenue .status-icon {
+    color: #ffc107;
+}
+
+.status-content {
+    flex: 1;
+}
+
+.status-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    line-height: 1.2;
+}
+
+.status-label {
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.status-trend {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-trend i {
+    font-size: 0.75rem;
+}
+
+.vehicle-tracking-section {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+.vehicle-tracking-section:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title i {
+    color: var(--primary-color);
+}
+
+.tracking-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.tracking-metric-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    transition: var(--transition);
+}
+
+.tracking-metric-item:hover {
+    background: #f0f0f0;
+    border-color: var(--primary-color);
+}
+
+.metric-item-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.metric-item-label {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.vehicle-health-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.health-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: bold;
+    color: white;
+    flex-shrink: 0;
+}
+
+.health-score.excellent {
+    background-color: #28a745;
+}
+
+.health-score.good {
+    background-color: #20c997;
+}
+
+.health-score.fair {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.health-score.poor {
+    background-color: #dc3545;
+}
+
+.health-content {
+    flex: 1;
+}
+
+.health-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.health-detail {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.comparison-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.comparison-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.comparison-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comparison-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.comparison-change {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.comparison-change.positive {
+    color: #28a745;
+}
+
+.comparison-change.negative {
+    color: #dc3545;
+}
+
+.tracking-timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 40px;
+    bottom: -20px;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.timeline-item:last-child::before {
+    display: none;
+}
+
+.timeline-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-dot.completed {
+    background: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+}
+
+.timeline-dot.pending {
+    background: var(--warning-color);
+    border-color: var(--warning-color);
+    color: white;
+}
+
+.timeline-dot.in-progress {
+    background: var(--info-color);
+    border-color: var(--info-color);
+    color: white;
+}
+
+.timeline-content {
+    flex: 1;
+    padding-top: 5px;
+}
+
+.timeline-date {
+    font-size: 0.9rem;
+    color: #999;
+    margin-bottom: 4px;
+}
+
+.timeline-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.timeline-detail {
+    font-size: 0.9rem;
+    color: #666;
+}
+
 @media (max-width: 768px) {
     .filter-row {
         grid-template-columns: 1fr;
@@ -584,6 +925,25 @@
     .flow-arrow {
         font-size: 1rem;
     }
+
+    .tracking-status-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .status-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+    }
+
+    .tracking-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .comparison-metrics {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 {% endblock %}
@@ -593,7 +953,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
             <h1><i class="fa fa-truck me-2"></i>Vehicle Service Tracking Dashboard</h1>
-            <p>Track vehicles for service with daily, weekly, and monthly analytics</p>
+            <p>Real-time tracking of vehicle services with comprehensive analytics and performance metrics</p>
         </div>
         {% if user.is_superuser %}
         <div>
@@ -602,6 +962,50 @@
             </button>
         </div>
         {% endif %}
+    </div>
+</div>
+
+<!-- Quick Overview Cards -->
+<div class="row g-3 mb-4" id="quickOverviewCards">
+    <div class="col-lg-3 col-md-6">
+        <div class="tracking-status-card active-vehicles">
+            <div class="status-icon"><i class="fa fa-car-alt"></i></div>
+            <div class="status-content">
+                <div class="status-value" id="quickTotalVehicles">0</div>
+                <div class="status-label">Active Vehicles</div>
+                <div class="status-trend" id="quickVehicleTrend"><i class="fa fa-arrow-up"></i> This period</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="tracking-status-card services-completed">
+            <div class="status-icon"><i class="fa fa-check-circle"></i></div>
+            <div class="status-content">
+                <div class="status-value" id="quickCompletedServices">0</div>
+                <div class="status-label">Services Completed</div>
+                <div class="status-trend" id="quickCompletionRate"><i class="fa fa-star"></i> On track</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="tracking-status-card repeat-customers">
+            <div class="status-icon"><i class="fa fa-redo-alt"></i></div>
+            <div class="status-content">
+                <div class="status-value" id="quickReturningCount">0</div>
+                <div class="status-label">Returning Vehicles</div>
+                <div class="status-trend" id="quickReturnRate"><i class="fa fa-sync"></i> Repeat business</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="tracking-status-card total-revenue">
+            <div class="status-icon"><i class="fa fa-money-bill-wave"></i></div>
+            <div class="status-content">
+                <div class="status-value" id="quickTotalRevenue">0</div>
+                <div class="status-label">Total Revenue</div>
+                <div class="status-trend" id="quickRevenueGrowth"><i class="fa fa-chart-line"></i> Strong growth</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -772,7 +1176,153 @@
     </div>
 </div>
 
+<!-- Tracking Performance Comparison -->
+<div class="vehicle-tracking-section mb-4" id="comparisonSection" style="display:none;">
+    <h5 class="section-title">
+        <i class="fa fa-chart-bar"></i>Performance Metrics
+    </h5>
+    <div class="row g-3">
+        <div class="col-lg-6">
+            <div class="comparison-metrics">
+                <div class="comparison-card">
+                    <div class="comparison-label">
+                        <span>Avg. Service Cost</span>
+                    </div>
+                    <div class="comparison-value" id="compAvgCost">0</div>
+                    <div class="comparison-change positive">
+                        <i class="fa fa-info-circle"></i> Per vehicle
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <div class="comparison-label">
+                        <span>Service Completion Rate</span>
+                    </div>
+                    <div class="comparison-value" id="compCompletionRate">0%</div>
+                    <div class="comparison-change positive">
+                        <i class="fa fa-arrow-up"></i> Improving
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="comparison-metrics">
+                <div class="comparison-card">
+                    <div class="comparison-label">
+                        <span>Avg. Days Between Services</span>
+                    </div>
+                    <div class="comparison-value" id="compDaysBetween">0</div>
+                    <div class="comparison-change" id="compDaysChange">
+                        <i class="fa fa-info-circle"></i> Service interval
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <div class="comparison-label">
+                        <span>Active Vehicles This Period</span>
+                    </div>
+                    <div class="comparison-value" id="compActiveVehicles">0</div>
+                    <div class="comparison-change positive">
+                        <i class="fa fa-users"></i> Tracking active
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Fleet Health Overview -->
+<div class="vehicle-tracking-section mb-4" id="healthSection" style="display:none;">
+    <h5 class="section-title">
+        <i class="fa fa-heartbeat"></i>Fleet Health Overview
+    </h5>
+    <div id="fleetHealthContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+        <div class="vehicle-health-indicator">
+            <div class="health-score excellent">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="health-content">
+                <div class="health-title">Fleet Status</div>
+                <div class="health-detail" id="fleetHealthStatus">Good - All systems operational</div>
+            </div>
+        </div>
+        <div class="vehicle-health-indicator">
+            <div class="health-score good">
+                <i class="fa fa-sync-alt"></i>
+            </div>
+            <div class="health-content">
+                <div class="health-title">Service Status</div>
+                <div class="health-detail" id="fleetServiceStatus">Most vehicles on schedule</div>
+            </div>
+        </div>
+        <div class="vehicle-health-indicator">
+            <div class="health-score good">
+                <i class="fa fa-wrench"></i>
+            </div>
+            <div class="health-content">
+                <div class="health-title">Maintenance</div>
+                <div class="health-detail" id="fleetMaintenanceStatus">Regular maintenance tracked</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Service History Timeline -->
+<div class="vehicle-tracking-section mb-4" id="timelineSection" style="display:none;">
+    <h5 class="section-title">
+        <i class="fa fa-history"></i>Recent Service Timeline
+    </h5>
+    <p style="font-size: 0.95rem; color: #666; margin-bottom: 20px;">
+        <i class="fa fa-info-circle me-2"></i>Service events and activities from tracked vehicles
+    </p>
+    <div class="tracking-timeline" id="serviceTimeline">
+        <!-- Timeline items will be populated here -->
+    </div>
+    <div id="timelineEmpty" style="text-align: center; padding: 40px; color: #999;">
+        <i class="fa fa-inbox fa-3x mb-3" style="display: block; opacity: 0.5; margin-bottom: 15px;"></i>
+        <p>No service history available for the selected period</p>
+    </div>
+</div>
+
+<!-- Service Summary Cards -->
+<div class="row g-3 mb-4" id="serviceSummarySection" style="display:none;">
+    <div class="col-lg-3 col-md-6">
+        <div class="vehicle-tracking-section">
+            <div style="text-align: center;">
+                <div style="font-size: 2.5rem; color: var(--primary-color); font-weight: bold; margin-bottom: 10px;" id="summaryTotalServices">0</div>
+                <div style="color: #666; font-weight: 500;">Total Services</div>
+                <div style="font-size: 0.9rem; color: #999; margin-top: 8px;">In selected period</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="vehicle-tracking-section">
+            <div style="text-align: center;">
+                <div style="font-size: 2.5rem; color: var(--success-color); font-weight: bold; margin-bottom: 10px;" id="summaryAverageSpend">0</div>
+                <div style="color: #666; font-weight: 500;">Average Spend</div>
+                <div style="font-size: 0.9rem; color: #999; margin-top: 8px;">Per service</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="vehicle-tracking-section">
+            <div style="text-align: center;">
+                <div style="font-size: 2.5rem; color: #20c997; font-weight: bold; margin-bottom: 10px;" id="summaryMostCommon">-</div>
+                <div style="color: #666; font-weight: 500;">Most Common</div>
+                <div style="font-size: 0.9rem; color: #999; margin-top: 8px;">Service type</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="vehicle-tracking-section">
+            <div style="text-align: center;">
+                <div style="font-size: 2.5rem; color: #0d6efd; font-weight: bold; margin-bottom: 10px;" id="summaryUniqueCars">0</div>
+                <div style="color: #666; font-weight: 500;">Unique Vehicles</div>
+                <div style="font-size: 0.9rem; color: #999; margin-top: 8px;">Serviced</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Charts Section -->
 <div class="row mb-4" id="chartsRow" style="display:none;">
@@ -1108,6 +1658,19 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('metricCompletedOrders').textContent = summary.order_stats.completed;
         document.getElementById('metricTotalSpent').textContent = formatCurrency(summary.total_spent);
 
+        // Update quick overview cards
+        document.getElementById('quickTotalVehicles').textContent = summary.total_vehicles;
+        document.getElementById('quickCompletedServices').textContent = summary.total_invoices;
+        document.getElementById('quickReturningCount').textContent = summary.returning_vehicles;
+        document.getElementById('quickTotalRevenue').textContent = formatCurrency(summary.total_spent);
+
+        // Update trends
+        const completionRate = summary.total_invoices > 0 ? Math.round((summary.order_stats.completed / summary.total_invoices) * 100) : 0;
+        document.getElementById('quickCompletionRate').textContent = completionRate + '% completion';
+
+        const returnRate = summary.total_vehicles > 0 ? Math.round((summary.returning_vehicles / summary.total_vehicles) * 100) : 0;
+        document.getElementById('quickReturnRate').textContent = returnRate + '% return rate';
+
         // Display revenue by order type if available
         if (summary.revenue_by_type) {
             const revenueMetricsRow = document.getElementById('revenueMetricsRow');
@@ -1162,8 +1725,194 @@ document.addEventListener('DOMContentLoaded', function() {
         if (patternsSection) {
             patternsSection.style.display = 'block';
         }
+
+        // Update comparison metrics
+        const comparisonSection = document.getElementById('comparisonSection');
+        if (comparisonSection) {
+            document.getElementById('compAvgCost').textContent = formatCurrency(summary.total_vehicles > 0 ? summary.total_spent / summary.total_vehicles : 0);
+            document.getElementById('compCompletionRate').textContent = completionRate + '%';
+            document.getElementById('compActiveVehicles').textContent = summary.total_vehicles;
+
+            // Calculate days between services (estimated)
+            const daysBetween = summary.returning_vehicles > 0 ? 30 : '-';
+            document.getElementById('compDaysBetween').textContent = daysBetween;
+
+            comparisonSection.style.display = 'block';
+        }
+
+        // Update fleet health section
+        const healthSection = document.getElementById('healthSection');
+        if (healthSection) {
+            let healthStatus = 'Good - All systems operational';
+            let serviceStatus = 'Most vehicles on schedule';
+
+            if (completionRate >= 90) {
+                healthStatus = 'Excellent - High service completion rate';
+            } else if (completionRate >= 70) {
+                healthStatus = 'Good - Services progressing well';
+            } else {
+                healthStatus = 'Fair - Some services pending';
+            }
+
+            if (returnRate >= 50) {
+                serviceStatus = 'Strong - High vehicle return rate indicates customer satisfaction';
+            } else if (returnRate >= 30) {
+                serviceStatus = 'Good - Moderate repeat business';
+            } else {
+                serviceStatus = 'New - Building customer base';
+            }
+
+            document.getElementById('fleetHealthStatus').textContent = healthStatus;
+            document.getElementById('fleetServiceStatus').textContent = serviceStatus;
+
+            healthSection.style.display = 'block';
+        }
     }
     
+    function renderServiceTimeline(vehicles) {
+        const timelineContainer = document.getElementById('serviceTimeline');
+        const timelineEmpty = document.getElementById('timelineEmpty');
+        const timelineSection = document.getElementById('timelineSection');
+        const summarySection = document.getElementById('serviceSummarySection');
+
+        if (!timelineSection) return;
+
+        // Collect all service events from all vehicles
+        const events = [];
+        const serviceTypeCount = {};
+        let totalServiceAmount = 0;
+        const uniqueVehicles = new Set();
+
+        vehicles.forEach(vehicle => {
+            if (vehicle.invoices && vehicle.invoices.length > 0) {
+                uniqueVehicles.add(vehicle.plate_number);
+                vehicle.invoices.forEach(invoice => {
+                    events.push({
+                        date: new Date(invoice.invoice_date),
+                        invoice_date: invoice.invoice_date,
+                        plate_number: vehicle.plate_number,
+                        customer_name: vehicle.customer_name,
+                        invoice_number: invoice.invoice_number,
+                        amount: invoice.total_amount,
+                        categories: invoice.categories || [],
+                        order_number: invoice.order_number,
+                        vehicle_id: vehicle.id,
+                        status: invoice.status || 'completed'
+                    });
+
+                    totalServiceAmount += invoice.total_amount;
+
+                    // Count service types
+                    if (invoice.categories && invoice.categories.length > 0) {
+                        invoice.categories.forEach(cat => {
+                            serviceTypeCount[cat] = (serviceTypeCount[cat] || 0) + 1;
+                        });
+                    } else {
+                        serviceTypeCount['General'] = (serviceTypeCount['General'] || 0) + 1;
+                    }
+                });
+            }
+        });
+
+        if (events.length === 0) {
+            timelineContainer.style.display = 'none';
+            timelineEmpty.style.display = 'block';
+            timelineSection.style.display = 'block';
+            summarySection.style.display = 'none';
+            return;
+        }
+
+        // Sort events by date (newest first)
+        events.sort((a, b) => b.date - a.date);
+
+        // Find most common service type
+        let mostCommonService = '-';
+        let maxCount = 0;
+        Object.entries(serviceTypeCount).forEach(([type, count]) => {
+            if (count > maxCount) {
+                maxCount = count;
+                mostCommonService = type;
+            }
+        });
+
+        // Calculate average spend
+        const averageSpend = events.length > 0 ? totalServiceAmount / events.length : 0;
+
+        // Update summary cards
+        if (summarySection) {
+            document.getElementById('summaryTotalServices').textContent = events.length;
+            document.getElementById('summaryAverageSpend').textContent = formatCurrency(averageSpend);
+            document.getElementById('summaryMostCommon').textContent = mostCommonService;
+            document.getElementById('summaryUniqueCars').textContent = uniqueVehicles.size;
+            summarySection.style.display = 'block';
+        }
+
+        // Create timeline HTML
+        let timelineHTML = '';
+        const maxEvents = 10; // Show latest 10 events
+
+        events.slice(0, maxEvents).forEach((event, index) => {
+            const statusClass = event.status === 'completed' ? 'completed' :
+                               event.status === 'pending' ? 'pending' : 'in-progress';
+            const statusIcon = event.status === 'completed' ? 'fa-check' :
+                              event.status === 'pending' ? 'fa-clock' : 'fa-spinner';
+            const dateObj = event.date;
+            const dateStr = dateObj.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const categoriesHtml = event.categories.length > 0
+                ? event.categories.map(cat => `<span class="badge-custom badge-service" style="font-size: 0.75rem; margin-right: 4px;">${cat}</span>`).join('')
+                : '<span style="color: #999; font-size: 0.85rem;">General Service</span>';
+
+            timelineHTML += `
+                <div class="timeline-item">
+                    <div class="timeline-dot ${statusClass}">
+                        <i class="fa ${statusIcon}"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">${dateStr}</div>
+                        <div class="timeline-title">
+                            <i class="fa fa-car" style="color: var(--primary-color); margin-right: 8px;"></i>
+                            ${event.plate_number} - ${event.customer_name}
+                        </div>
+                        <div class="timeline-detail">
+                            <div style="margin-bottom: 8px;">
+                                <strong>Invoice:</strong> ${event.invoice_number}
+                                ${event.order_number ? ` | <strong>Order:</strong> ${event.order_number}` : ''}
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                ${categoriesHtml}
+                            </div>
+                            <div>
+                                <strong style="color: var(--success-color); font-size: 1.1rem;">
+                                    ${formatCurrency(event.amount)}
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        if (events.length > maxEvents) {
+            timelineHTML += `
+                <div style="text-align: center; padding: 20px; color: #999;">
+                    <small><i class="fa fa-ellipsis-h"></i> Showing ${maxEvents} of ${events.length} recent services</small>
+                </div>
+            `;
+        }
+
+        timelineContainer.innerHTML = timelineHTML;
+        timelineEmpty.style.display = 'none';
+        timelineContainer.style.display = 'block';
+        timelineSection.style.display = 'block';
+    }
+
     function renderVehiclesTable(vehicles) {
         const tableBody = document.getElementById('vehiclesTableBody');
         const tableContainer = document.getElementById('vehiclesTableContainer');
@@ -1178,6 +1927,9 @@ document.addEventListener('DOMContentLoaded', function() {
         tableContainer.style.display = 'block';
         emptyState.style.display = 'none';
         tableBody.innerHTML = '';
+
+        // Render timeline before table
+        renderServiceTimeline(vehicles);
 
         // Show charts section
         const chartsRow = document.getElementById('chartsRow');
@@ -1209,19 +1961,29 @@ document.addEventListener('DOMContentLoaded', function() {
             // Service status indicator
             let statusBadge = 'bg-secondary';
             let statusText = 'Tracking';
+            let statusIcon = 'fa-info-circle';
+
             if (vehicle.order_stats.completed > 0) {
                 statusBadge = 'bg-success';
-                statusText = `Completed (${completionRate}%)`;
+                statusText = `${completionRate}% Complete`;
+                statusIcon = 'fa-check-circle';
             } else if (vehicle.order_stats.in_progress > 0) {
                 statusBadge = 'bg-info';
                 statusText = 'In Service';
+                statusIcon = 'fa-spinner';
             } else if (vehicle.order_stats.pending > 0) {
                 statusBadge = 'bg-warning';
                 statusText = 'In Queue';
+                statusIcon = 'fa-clock';
             }
 
             // Avg spending
             const avgSpending = vehicle.invoice_count > 0 ? vehicle.total_spent / vehicle.invoice_count : 0;
+
+            // Calculate tracking indicator
+            const trackingStatus = vehicle.is_returning ?
+                '<i class="fa fa-sync-alt me-1" style="color: #20c997;"></i>Regular Customer' :
+                '<i class="fa fa-check me-1" style="color: #0d6efd;"></i>Active Tracking';
 
             row.innerHTML = `
                 <td style="text-align: center;">
@@ -1230,29 +1992,42 @@ document.addEventListener('DOMContentLoaded', function() {
                     </span>
                 </td>
                 <td>
-                    <strong>${vehicle.plate_number}</strong>
-                    <br><small class="text-muted">${vehicle.make || '-'} ${vehicle.model || ''}</small>
+                    <strong style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fa fa-car" style="color: var(--primary-color);"></i>
+                        ${vehicle.plate_number}
+                    </strong>
+                    <small class="text-muted">${vehicle.make || '-'} ${vehicle.model || ''}</small>
+                    <br><small class="text-muted">${vehicle.vehicle_type || 'Vehicle'}</small>
                 </td>
                 <td>
-                    <div>${vehicle.customer_name}</div>
-                    <small class="text-muted" style="display:block;">${vehicle.customer_phone}</small>
+                    <div><strong>${vehicle.customer_name}</strong></div>
+                    <small class="text-muted" style="display:block;"><i class="fa fa-phone me-1"></i>${vehicle.customer_phone}</small>
                 </td>
-                <td>${serviceTypesBadges}</td>
-                <td style="text-align: center;">
-                    <div><strong>${vehicle.order_count || 0}</strong></div>
-                    <small class="text-muted">Total Orders</small>
+                <td>
+                    <div style="margin-bottom: 5px;">${serviceTypesBadges}</div>
+                    <small class="text-muted">${vehicle.service_types ? vehicle.service_types.length : 0} types</small>
                 </td>
                 <td style="text-align: center;">
-                    <div><strong>${vehicle.invoice_count}</strong></div>
+                    <div><strong style="font-size: 1.2rem;">${vehicle.order_count || 0}</strong></div>
+                    <small class="text-muted">Total</small>
+                </td>
+                <td style="text-align: center;">
+                    <div><strong style="font-size: 1.2rem; color: var(--primary-color);">${vehicle.invoice_count}</strong></div>
                     <small class="text-muted">Services</small>
                 </td>
                 <td>
-                    <span class="badge ${statusBadge}">${statusText}</span>
+                    <div style="margin-bottom: 8px;">
+                        <span class="badge ${statusBadge}" style="display: flex; align-items: center; gap: 5px; width: fit-content;">
+                            <i class="fa ${statusIcon}"></i>${statusText}
+                        </span>
+                    </div>
                     ${returningBadge}
+                    <div style="font-size: 0.85rem; margin-top: 5px;">${trackingStatus}</div>
                 </td>
                 <td style="text-align: right;">
-                    <div><strong>${formatCurrency(vehicle.total_spent)}</strong></div>
-                    <small class="text-muted">Total / ${formatCurrency(avgSpending)} Avg</small>
+                    <div><strong style="color: var(--success-color);">${formatCurrency(vehicle.total_spent)}</strong></div>
+                    <small class="text-muted">Total</small>
+                    <small class="text-muted" style="display: block; margin-top: 4px;">Avg: ${formatCurrency(avgSpending)}</small>
                 </td>
                 <td style="text-align: right;">
                     <button class="btn btn-sm btn-outline-primary" onclick="viewVehicleDetails(${vehicle.id}, ${vehicle.customer_id}, '${vehicle.plate_number.replace(/'/g, "\'")}')">

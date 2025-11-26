@@ -11,7 +11,7 @@ from django.utils import timezone
 WORK_START_HOUR = 8  # 8:00 AM
 WORK_END_HOUR = 17   # 5:00 PM
 WORKING_HOURS_PER_DAY = 9  # 8 AM to 5 PM = 9 hours
-OVERDUE_THRESHOLD_HOURS = 9  # Mark as overdue after 9 working hours
+OVERDUE_THRESHOLD_HOURS = 9  # Mark order as overdue after 9 working hours of service (not 24 calendar hours)
 
 
 def get_work_start_time(dt: datetime) -> datetime:

@@ -224,7 +224,11 @@ def create_sample_data():
         'Engine tune-up and diagnostics',
         'Transmission fluid service'
     ]
-    
+
+    # Track which customers have been visited on each date
+    # Format: {customer_id: set of visit dates}
+    customer_visit_tracker = {}
+
     order_num = 0
     for status, base_days_ago in order_configs:
         order_num += 1
@@ -279,10 +283,23 @@ def create_sample_data():
             order = Order.objects.create(**order_data)
             orders_by_status[status].append(order)
             
-            # Update customer visit tracking
-            customer.total_visits = (customer.total_visits or 0) + 1
+            # Update customer visit tracking - count visits by day only
             customer.last_visit = created_at
-            customer.save(update_fields=['total_visits', 'last_visit'])
+            customer.arrival_time = created_at
+            customer.current_status = 'arrived'
+
+            # Check if this customer was already visited on this date
+            # Only increment visit count once per customer per day
+            visit_date = created_at.date() if hasattr(created_at, 'date') else created_at
+
+            if customer.id not in customer_visit_tracker:
+                customer_visit_tracker[customer.id] = set()
+
+            if visit_date not in customer_visit_tracker[customer.id]:
+                customer.total_visits = (customer.total_visits or 0) + 1
+                customer_visit_tracker[customer.id].add(visit_date)
+
+            customer.save(update_fields=['last_visit', 'arrival_time', 'current_status', 'total_visits'])
             
             status_display = status.replace('_', ' ').upper().ljust(12)
             print(f"{order_num:2d}. {order.order_number:20s} | {customer.full_name:25s} | {status_display} | {order_type.upper()}")
