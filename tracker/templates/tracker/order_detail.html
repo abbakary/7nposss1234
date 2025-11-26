@@ -374,6 +374,28 @@
               </div>
             </div>
             {% endif %}
+
+            <!-- 9+ Hours Delay Reason (if applicable) -->
+            {% if order.exceeded_9_hours or exceeds_9_hours %}
+            <div class="col-12">
+              <div class="alert {% if order.exceeded_9_hours %}alert-danger bg-danger bg-opacity-10 border-danger{% else %}alert-warning bg-warning bg-opacity-10 border-warning{% endif %}">
+                <div class="d-flex align-items-start">
+                  <i class="fa {% if order.exceeded_9_hours %}fa-exclamation-circle{% else %}fa-clock{% endif %} {% if order.exceeded_9_hours %}text-danger{% else %}text-warning{% endif %} me-3 mt-1"></i>
+                  <div>
+                    <strong>{% if order.exceeded_9_hours %}Order Exceeded 9 Working Hours{% else %}Order Approaching 9 Working Hours{% endif %}</strong>
+                    {% if order.delay_reason %}
+                    <p class="mb-0 mt-1 text-dark">
+                      <strong>Category:</strong> {{ order.delay_reason.get_category_display }}<br>
+                      <strong>Reason:</strong> {{ order.delay_reason.reason_text }}
+                    </p>
+                    {% elif exceeds_9_hours %}
+                    <p class="mb-0 mt-1 text-muted"><em>No delay reason recorded yet.</em></p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
