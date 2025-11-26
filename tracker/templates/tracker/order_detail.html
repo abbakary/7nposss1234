@@ -1364,14 +1364,43 @@
               </div>
               {% endif %}
 
-              <!-- Overrun Reason -->
-              <div class="mb-3">
+              <!-- Delay Reason for Orders Exceeding 9+ Hours -->
+              <div class="mb-3" id="delayReasonSection">
                 <label class="form-label fw-bold text-dark mb-2">
-                  <i class="fa fa-comment-alt me-2 text-info"></i>Reason for Delays <small class="fw-normal text-muted">(optional)</small>
+                  <i class="fa fa-exclamation-circle me-2 text-danger"></i><span id="delayReasonLabel">Reason for Delays</span> <span id="delayReasonRequired" class="text-danger" style="display:none;">*</span><small class="fw-normal text-muted" id="delayReasonOptionalText"> (optional)</small>
                 </label>
-                <textarea name="signature_reason" id="signatureReasonField" class="form-control" rows="3" placeholder="e.g., Additional repairs discovered, customer delayed arrival, supply shortage, technical issues, unforeseen circumstances..."></textarea>
+
+                <!-- Category Dropdown -->
+                <div class="mb-2">
+                  <label class="form-label text-muted small">Category</label>
+                  <select id="delayReasonCategory" name="delay_reason_category" class="form-select">
+                    <option value="">-- Select Category --</option>
+                    <option value="parts">Parts-Related Delays</option>
+                    <option value="technical">Technical / Diagnostic Issues</option>
+                    <option value="workload">High Workload / Operational Capacity</option>
+                    <option value="customer">Customer-Related Causes</option>
+                    <option value="administrative">Administrative / System Issues</option>
+                    <option value="quality">Quality-Control & Testing Delays</option>
+                    <option value="external">External / Environmental Factors</option>
+                  </select>
+                </div>
+
+                <!-- Specific Reason Dropdown -->
+                <div class="mb-2">
+                  <label class="form-label text-muted small">Specific Reason</label>
+                  <select id="delayReasonDropdown" name="delay_reason" class="form-select">
+                    <option value="">-- Select Specific Reason --</option>
+                  </select>
+                </div>
+
+                <!-- Custom Comments -->
+                <div>
+                  <label class="form-label text-muted small">Additional Comments (optional)</label>
+                  <textarea id="delayReasonComments" name="delay_reason_comments" class="form-control form-control-sm" rows="2" placeholder="Add any additional details about the delay..."></textarea>
+                </div>
+
                 <small class="text-muted d-block mt-2">
-                  <i class="fa fa-info-circle me-1"></i>Explain any reasons why this order took longer than expected or any special circumstances.
+                  <i class="fa fa-info-circle me-1"></i><span id="delayReasonHelpText">Select the reason if order exceeded 9 working hours.</span>
                 </small>
               </div>
             </div>
