@@ -84,23 +84,23 @@ def get_order_overdue_status(order) -> dict:
     return result
 
 
-def format_working_hours(hours: float) -> str:
+def format_hours(hours: float) -> str:
     """
-    Format working hours as a human-readable string.
-    
+    Format hours as a human-readable string.
+
     Args:
-        hours: Number of working hours (float)
-        
+        hours: Number of hours (float)
+
     Returns:
         Formatted string like "9h 30m" or "2h 15m"
     """
     if hours < 0:
         return "0h"
-    
+
     total_minutes = int(hours * 60)
     hours_part = total_minutes // 60
     minutes_part = total_minutes % 60
-    
+
     if hours_part == 0 and minutes_part == 0:
         return "0h"
     elif hours_part == 0:
@@ -114,11 +114,11 @@ def format_working_hours(hours: float) -> str:
 def estimate_completion_time(started_at: datetime, estimated_minutes: int = None) -> dict:
     """
     Estimate the completion time based on start time and estimated duration.
-    
+
     Args:
         started_at: Order start datetime
         estimated_minutes: Estimated duration in minutes (defaults to 9 hours)
-        
+
     Returns:
         Dictionary with:
         - estimated_end (datetime): Estimated completion datetime
@@ -127,18 +127,17 @@ def estimate_completion_time(started_at: datetime, estimated_minutes: int = None
     """
     if not started_at:
         return None
-    
+
     if estimated_minutes is None:
         estimated_minutes = OVERDUE_THRESHOLD_HOURS * 60
-    
+
     estimated_hours = estimated_minutes / 60.0
-    
-    # Simple approximation: add estimated hours to start time
-    # In reality, we'd need to account for working hours cutoff
+
+    # Simple: add estimated hours to start time
     estimated_end = started_at + timedelta(hours=estimated_hours)
-    
+
     return {
         'estimated_end': estimated_end,
         'estimated_hours': estimated_hours,
-        'formatted': format_working_hours(estimated_hours),
+        'formatted': format_hours(estimated_hours),
     }
