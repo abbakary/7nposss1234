@@ -157,7 +157,7 @@ def api_order_status(request: HttpRequest, pk: int):
 
 @login_required
 def api_orders_statuses(request: HttpRequest):
-    _mark_overdue_orders(hours=24)
+    _mark_overdue_orders()
     ids_param = request.GET.get('ids') or ''
     try:
         ids = [int(x) for x in ids_param.replace(',', ' ').split() if x.isdigit()]
