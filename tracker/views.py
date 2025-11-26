@@ -136,7 +136,7 @@ class CustomLogoutView(LogoutView):
 
 @login_required
 def api_order_status(request: HttpRequest, pk: int):
-    _mark_overdue_orders(hours=24)
+    _mark_overdue_orders()
     try:
         o = Order.objects.get(pk=pk)
         data = {
