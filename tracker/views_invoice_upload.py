@@ -871,10 +871,14 @@ def api_create_invoice_from_upload(request):
                 has_items = inv.line_items.exists()
             except Exception:
                 has_items = False
-            if (inv.subtotal is None or inv.subtotal == Decimal('0')) and has_items:
+
+            # Recalculate if subtotal and tax are both missing/zero (extraction didn't find them)
+            # but we have line items that can be summed
+            if has_items and (inv.subtotal is None or inv.subtotal == Decimal('0')) and \
+               (inv.tax_amount is None or inv.tax_amount == Decimal('0')):
                 inv.calculate_totals()
-            elif (inv.total_amount is None or inv.total_amount == Decimal('0')) and has_items:
-                inv.calculate_totals()
+                logger.info(f"Recalculated invoice totals from line items: subtotal={inv.subtotal}, tax={inv.tax_amount}, total={inv.total_amount}")
+
             inv.save(update_fields=['subtotal', 'tax_amount', 'total_amount'])
 
             # Update order type aggregating categories from ALL linked invoices (primary + additional)
