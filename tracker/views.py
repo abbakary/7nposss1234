@@ -46,18 +46,13 @@ from django.views.generic import View
 logger = logging.getLogger(__name__)
 
 
-def _mark_overdue_orders(hours: int = 9):
+def _mark_overdue_orders():
     """
-    Mark orders as overdue based on time elapsed.
-
-    Args:
-        hours (int): Threshold in hours to mark orders as overdue.
-                    - 9: Use working hours calculation (8 AM - 5 PM)
-                    - 24: Use calendar hours (24-hour elapsed time)
-                    Default: 9 (working hours)
+    Mark orders as overdue after 9 calendar hours elapsed.
+    Simple calculation: just check elapsed time, no working hour complexity.
     """
     try:
-        from .utils.time_utils import is_order_overdue, calculate_working_hours_between, OVERDUE_THRESHOLD_HOURS
+        from .utils.time_utils import is_order_overdue, OVERDUE_THRESHOLD_HOURS
 
         now = timezone.now()
         # Ensure inquiries are treated as completed (retroactively normalize existing data)
@@ -68,55 +63,27 @@ def _mark_overdue_orders(hours: int = 9):
         created_cutoff = now - timedelta(minutes=10)
         Order.objects.filter(status="created", created_at__lte=created_cutoff).exclude(type='inquiry').update(status="in_progress", started_at=F('created_at'))
 
-        # Mark orders as overdue based on time elapsed
-        # Two modes: working hours (9) or calendar hours (24)
+        # Mark orders as overdue if they've been active for 9+ calendar hours
+        # Check in_progress orders with started_at set
+        in_progress_orders = Order.objects.filter(
+            status='in_progress',
+            started_at__isnull=False
+        ).exclude(type='inquiry')
 
-        if hours == 9:
-            # Use working hours calculation (8 AM - 5 PM)
-            # 1. Check in_progress orders with started_at set
-            in_progress_orders = Order.objects.filter(
-                status='in_progress',
-                started_at__isnull=False
-            ).exclude(type='inquiry')
-
-            for order in in_progress_orders:
-                if is_order_overdue(order.started_at, now):
-                    order.status = 'overdue'
-                    order.save(update_fields=['status'])
-
-            # 2. Check created orders that are waiting too long (created but not yet auto-progressed)
-            # An order in 'created' status for 9+ working hours should be marked as overdue
-            created_orders = Order.objects.filter(
-                status='created',
-                created_at__isnull=False
-            ).exclude(type='inquiry')
-
-            for order in created_orders:
-                if is_order_overdue(order.created_at, now):
-                    order.status = 'overdue'
-                    order.save(update_fields=['status'])
-
-        else:
-            # Use calendar hours (simple elapsed time)
-            cutoff_time = now - timedelta(hours=hours)
-
-            # Mark in_progress orders that have exceeded the calendar hour threshold
-            in_progress_orders = Order.objects.filter(
-                status='in_progress',
-                started_at__lte=cutoff_time
-            ).exclude(type='inquiry')
-
-            for order in in_progress_orders:
+        for order in in_progress_orders:
+            if is_order_overdue(order.started_at, now):
                 order.status = 'overdue'
                 order.save(update_fields=['status'])
 
-            # Mark created orders that have exceeded the calendar hour threshold
-            created_orders = Order.objects.filter(
-                status='created',
-                created_at__lte=cutoff_time
-            ).exclude(type='inquiry')
+        # Check created orders that are waiting too long (created but not yet auto-progressed)
+        # An order in 'created' status for 9+ hours should be marked as overdue
+        created_orders = Order.objects.filter(
+            status='created',
+            created_at__isnull=False
+        ).exclude(type='inquiry')
 
-            for order in created_orders:
+        for order in created_orders:
+            if is_order_overdue(order.created_at, now):
                 order.status = 'overdue'
                 order.save(update_fields=['status'])
 
