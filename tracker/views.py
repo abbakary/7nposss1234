@@ -288,7 +288,7 @@ def api_service_distribution(request: HttpRequest):
 @login_required
 def dashboard(request: HttpRequest):
     # Normalize statuses before computing metrics
-    _mark_overdue_orders(hours=24)
+    _mark_overdue_orders()
     # Always calculate fresh metrics for accurate data
     today = timezone.localdate()
 
