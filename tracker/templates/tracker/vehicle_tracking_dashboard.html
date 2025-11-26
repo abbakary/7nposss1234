@@ -1757,19 +1757,29 @@ document.addEventListener('DOMContentLoaded', function() {
             // Service status indicator
             let statusBadge = 'bg-secondary';
             let statusText = 'Tracking';
+            let statusIcon = 'fa-info-circle';
+
             if (vehicle.order_stats.completed > 0) {
                 statusBadge = 'bg-success';
-                statusText = `Completed (${completionRate}%)`;
+                statusText = `${completionRate}% Complete`;
+                statusIcon = 'fa-check-circle';
             } else if (vehicle.order_stats.in_progress > 0) {
                 statusBadge = 'bg-info';
                 statusText = 'In Service';
+                statusIcon = 'fa-spinner';
             } else if (vehicle.order_stats.pending > 0) {
                 statusBadge = 'bg-warning';
                 statusText = 'In Queue';
+                statusIcon = 'fa-clock';
             }
 
             // Avg spending
             const avgSpending = vehicle.invoice_count > 0 ? vehicle.total_spent / vehicle.invoice_count : 0;
+
+            // Calculate tracking indicator
+            const trackingStatus = vehicle.is_returning ?
+                '<i class="fa fa-sync-alt me-1" style="color: #20c997;"></i>Regular Customer' :
+                '<i class="fa fa-check me-1" style="color: #0d6efd;"></i>Active Tracking';
 
             row.innerHTML = `
                 <td style="text-align: center;">
@@ -1778,25 +1788,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     </span>
                 </td>
                 <td>
-                    <strong>${vehicle.plate_number}</strong>
-                    <br><small class="text-muted">${vehicle.make || '-'} ${vehicle.model || ''}</small>
+                    <strong style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fa fa-car" style="color: var(--primary-color);"></i>
+                        ${vehicle.plate_number}
+                    </strong>
+                    <small class="text-muted">${vehicle.make || '-'} ${vehicle.model || ''}</small>
+                    <br><small class="text-muted">${vehicle.vehicle_type || 'Vehicle'}</small>
                 </td>
                 <td>
-                    <div>${vehicle.customer_name}</div>
-                    <small class="text-muted" style="display:block;">${vehicle.customer_phone}</small>
+                    <div><strong>${vehicle.customer_name}</strong></div>
+                    <small class="text-muted" style="display:block;"><i class="fa fa-phone me-1"></i>${vehicle.customer_phone}</small>
                 </td>
-                <td>${serviceTypesBadges}</td>
-                <td style="text-align: center;">
-                    <div><strong>${vehicle.order_count || 0}</strong></div>
-                    <small class="text-muted">Total Orders</small>
+                <td>
+                    <div style="margin-bottom: 5px;">${serviceTypesBadges}</div>
+                    <small class="text-muted">${vehicle.service_types ? vehicle.service_types.length : 0} types</small>
                 </td>
                 <td style="text-align: center;">
-                    <div><strong>${vehicle.invoice_count}</strong></div>
+                    <div><strong style="font-size: 1.2rem;">${vehicle.order_count || 0}</strong></div>
+                    <small class="text-muted">Total</small>
+                </td>
+                <td style="text-align: center;">
+                    <div><strong style="font-size: 1.2rem; color: var(--primary-color);">${vehicle.invoice_count}</strong></div>
                     <small class="text-muted">Services</small>
                 </td>
                 <td>
-                    <span class="badge ${statusBadge}">${statusText}</span>
+                    <div style="margin-bottom: 8px;">
+                        <span class="badge ${statusBadge}" style="display: flex; align-items: center; gap: 5px; width: fit-content;">
+                            <i class="fa ${statusIcon}"></i>${statusText}
+                        </span>
+                    </div>
                     ${returningBadge}
+                    <div style="font-size: 0.85rem; margin-top: 5px;">${trackingStatus}</div>
                 </td>
                 <td style="text-align: right;">
                     <div><strong>${formatCurrency(vehicle.total_spent)}</strong></div>
