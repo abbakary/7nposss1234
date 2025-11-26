@@ -14,12 +14,12 @@ from tracker.models import Invoice, InvoiceLineItem
 def get_revenue_by_order_type(invoices_qs=None, date_from=None, date_to=None):
     """
     Calculate total revenue breakdown by order type (sales, service, labour, unknown).
-    
+
     Args:
         invoices_qs: QuerySet of invoices to analyze (optional, defaults to all)
         date_from: Start date for filtering invoices (optional)
         date_to: End date for filtering invoices (optional)
-    
+
     Returns:
         Dict with keys:
         - sales: Total revenue from sales items
@@ -30,9 +30,9 @@ def get_revenue_by_order_type(invoices_qs=None, date_from=None, date_to=None):
         - count: Number of invoices analyzed
     """
     if invoices_qs is None:
-        invoices_qs = Invoice.objects.filter(status__in=['issued', 'paid'])
+        invoices_qs = Invoice.objects.filter(status__in=['draft', 'issued', 'paid'])
     else:
-        invoices_qs = invoices_qs.filter(status__in=['issued', 'paid'])
+        invoices_qs = invoices_qs.filter(status__in=['draft', 'issued', 'paid'])
     
     # Apply date filtering if provided
     if date_from:
@@ -91,19 +91,19 @@ def get_revenue_by_order_type_this_month():
     now = timezone.now()
     month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
     month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(seconds=1)
-    
+
     invoices_qs = Invoice.objects.filter(
-        status__in=['issued', 'paid'],
+        status__in=['draft', 'issued', 'paid'],
         invoice_date__gte=month_start.date(),
         invoice_date__lte=month_end.date()
     )
-    
+
     return get_revenue_by_order_type(invoices_qs)
 
 
 def get_revenue_by_order_type_all_time():
     """Get revenue breakdown by order type for all time."""
-    invoices_qs = Invoice.objects.filter(status__in=['issued', 'paid'])
+    invoices_qs = Invoice.objects.filter(status__in=['draft', 'issued', 'paid'])
     return get_revenue_by_order_type(invoices_qs)
 
 
