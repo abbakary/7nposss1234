@@ -492,6 +492,36 @@ def dashboard(request: HttpRequest):
                 amount = Decimal(str(item['total'])) if item['total'] is not None else Decimal('0')
                 revenue_by_branch_tsh[branch_name] = amount
 
+        # Revenue breakdown by order type
+        revenue_by_type = {}
+        revenue_by_type_this_month = {}
+        try:
+            from tracker.utils.revenue_utils import get_revenue_by_order_type
+
+            # All-time revenue by type
+            revenue_by_type = get_revenue_by_order_type(invoices_qs)
+
+            # This month's revenue by type
+            revenue_by_type_this_month = get_revenue_by_order_type(month_invoices)
+        except Exception as e:
+            logger.warning(f"Error calculating revenue by order type: {e}")
+            revenue_by_type = {
+                'sales': Decimal('0'),
+                'service': Decimal('0'),
+                'labour': Decimal('0'),
+                'unknown': Decimal('0'),
+                'total': Decimal('0'),
+                'count': 0,
+            }
+            revenue_by_type_this_month = {
+                'sales': Decimal('0'),
+                'service': Decimal('0'),
+                'labour': Decimal('0'),
+                'unknown': Decimal('0'),
+                'total': Decimal('0'),
+                'count': 0,
+            }
+
         except Exception as e:
             logger.error(f"Error aggregating revenue KPIs from invoices: {e}")
             gross_revenue_this_month = Decimal('0')
