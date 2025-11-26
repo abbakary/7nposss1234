@@ -2035,12 +2035,8 @@ def create_order_for_customer(request: HttpRequest, pk: int):
             # Update customer visit/arrival status using centralized service
             try:
                 from .services import CustomerService
-                now_ts = timezone.now()
-                c.arrival_time = now_ts
-                c.current_status = 'arrived'
-                c.last_visit = now_ts
-                c.save(update_fields=['arrival_time','current_status','last_visit'])
-                # Use centralized service to increment visit count (avoids duplicates)
+                # update_customer_visit() handles last_visit and total_visits updates
+                # Do NOT manually set last_visit before calling it, as this breaks visit counting
                 CustomerService.update_customer_visit(c)
             except Exception:
                 pass
