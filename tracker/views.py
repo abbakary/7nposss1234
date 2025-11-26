@@ -3286,10 +3286,11 @@ def order_detail(request: HttpRequest, pk: int):
     delay_reasons_by_category = {}
     try:
         from tracker.models import DelayReasonCategory, DelayReason
+        import json
         delay_reason_categories = list(DelayReasonCategory.objects.filter(is_active=True).values('category', 'id'))
         for category in DelayReasonCategory.objects.filter(is_active=True):
-            reasons = DelayReason.objects.filter(category=category, is_active=True).values('id', 'reason_text')
-            delay_reasons_by_category[category.category] = list(reasons)
+            reasons = list(DelayReason.objects.filter(category=category, is_active=True).values('id', 'reason_text'))
+            delay_reasons_by_category[category.category] = reasons
     except Exception:
         pass
 
