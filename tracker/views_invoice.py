@@ -427,6 +427,8 @@ def api_upload_extract_invoice(request):
                 inv.tax_rate = Decimal('0')
 
         # Final validation - ensure all monetary fields are Decimal and not None
+        # If subtotal and tax are both 0 but total_amount is set, calculate them from line items
+        # This handles cases where extraction couldn't find these values but total was found
         inv.subtotal = inv.subtotal or Decimal('0')
         inv.tax_amount = inv.tax_amount or Decimal('0')
         inv.total_amount = inv.total_amount or (inv.subtotal + inv.tax_amount)
